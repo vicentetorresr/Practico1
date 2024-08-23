@@ -40,6 +40,8 @@
             textBox4 = new TextBox();
             textBox3 = new TextBox();
             textBox1 = new TextBox();
+            dgvProyecto = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvProyecto).BeginInit();
             SuspendLayout();
             // 
             // comboBox1
@@ -149,11 +151,25 @@
             textBox1.Size = new Size(148, 23);
             textBox1.TabIndex = 6;
             // 
+            // dgvProyecto
+            // 
+            dgvProyecto.AllowUserToAddRows = false;
+            dgvProyecto.AllowUserToDeleteRows = false;
+            dgvProyecto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProyecto.Location = new Point(15, 172);
+            dgvProyecto.Name = "dgvProyecto";
+            dgvProyecto.ReadOnly = true;
+            dgvProyecto.RowTemplate.Height = 25;
+            dgvProyecto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProyecto.Size = new Size(431, 198);
+            dgvProyecto.TabIndex = 15;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1017, 450);
+            Controls.Add(dgvProyecto);
             Controls.Add(comboBox1);
             Controls.Add(label7);
             Controls.Add(label2);
@@ -168,6 +184,7 @@
             Controls.Add(textBox1);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dgvProyecto).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -186,5 +203,6 @@
         private TextBox textBox4;
         private TextBox textBox3;
         private TextBox textBox1;
+        private DataGridView dgvProyecto;
     }
 }

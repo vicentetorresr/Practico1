@@ -9,7 +9,7 @@ namespace Practico1.servicios
 {
     public class UsuarioServicio : ConexionAApi
     {
-        private readonly string groupKey = "/m3N4q5P6";
+        private readonly string groupKey = "";
 
         // Método para obtener la lista de usuarios (Index)
         public async Task<List<Usuario>> Index()
