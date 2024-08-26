@@ -42,5 +42,10 @@ namespace Practico1
             V_Usuario v = new V_Usuario();
             addUserView(v);
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
