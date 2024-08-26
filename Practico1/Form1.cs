@@ -4,34 +4,43 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Practico1.views;
 
 namespace Practico1
 {
     public partial class Form1 : Form
     {
-        private ProyectoServicio proyectoServicio;
 
         public Form1()
         {
             InitializeComponent();
-            proyectoServicio = new ProyectoServicio();
-            CargarProyectos();  // Llamamos la funcion al cargar el formulario
+            V_Proyecto v = new V_Proyecto();
+            addUserView(v);
         }
 
-        private async void CargarProyectos()
+        private void addUserView(UserControl userControl)
         {
-            try
-            {
-                // Llamar al método Index del servicio para obtener la lista de proyectos
-                List<Proyecto> listaDeProyectos = await proyectoServicio.Index();
+            userControl.Dock = DockStyle.Fill;
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(userControl);
+            userControl.BringToFront();
+        }
+        private void btnProyectos_Click(object sender, EventArgs e)
+        {
+            V_Proyecto v = new V_Proyecto();
+            addUserView(v);
+        }
 
-                // Asignar la lista de proyectos como fuente de datos del DataGridView
-                dgvProyecto.DataSource = listaDeProyectos;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar proyectos: {ex.Message}");
-            }
+        private void btnTarea_Click(object sender, EventArgs e)
+        {
+            V_Tarea v = new V_Tarea();
+            addUserView(v);
+        }
+
+        private void btnUsuario_Click(object sender, EventArgs e)
+        {
+            V_Usuario v = new V_Usuario();
+            addUserView(v);
         }
     }
 }
