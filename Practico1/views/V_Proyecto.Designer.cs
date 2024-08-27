@@ -120,6 +120,8 @@
             // 
             dgvProyecto.AllowUserToAddRows = false;
             dgvProyecto.AllowUserToDeleteRows = false;
+            dgvProyecto.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProyecto.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvProyecto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProyecto.ContextMenuStrip = btnEliminar_menustrip;
             dgvProyecto.Location = new Point(45, 153);

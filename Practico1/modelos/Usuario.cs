@@ -11,7 +11,7 @@ namespace Practico1.modelos
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("nombre")]
+        [JsonPropertyName("name")]
         public string Nombre { get; set; }
 
         [JsonPropertyName("email")]
