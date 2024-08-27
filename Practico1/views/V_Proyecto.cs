@@ -39,5 +39,69 @@ namespace Practico1.views
                 MessageBox.Show($"Error al cargar proyectos: {ex.Message}");
             }
         }
+
+        private void dgvProyecto_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar que la fila seleccionada no sea la fila del encabezado (índice de fila -1)
+            if (e.RowIndex >= 0)
+            {
+                // Obtener la fila seleccionada
+                DataGridViewRow selectedRow = dgvProyecto.Rows[e.RowIndex];
+
+                // Establecer los valores de las celdas en los campos de texto correspondientes
+                txtId.Text = selectedRow.Cells["id"].Value.ToString();
+                txtNombre.Text = selectedRow.Cells["name"].Value.ToString();
+                txtDescripcion.Text = selectedRow.Cells["description"].Value.ToString();
+                txtWorkHours.Text = selectedRow.Cells["workerhours"].Value.ToString();
+                txtTotalHour.Text = selectedRow.Cells["totalhours"].Value.ToString();
+
+                // Verifica que los datos de la celda no sean nulos antes de convertirlos a cadena.
+                txtId.Text = selectedRow.Cells["id"].Value?.ToString() ?? string.Empty;
+                txtNombre.Text = selectedRow.Cells["name"].Value?.ToString() ?? string.Empty;
+                txtDescripcion.Text = selectedRow.Cells["description"].Value?.ToString() ?? string.Empty;
+                txtWorkHours.Text = selectedRow.Cells["workerhours"].Value?.ToString() ?? string.Empty;
+                txtTotalHour.Text = selectedRow.Cells["totalhours"].Value?.ToString() ?? string.Empty;
+                showBtn();
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limpiar();
+        }
+
+        private void limpiar()
+        {
+            unShow();
+            txtId.ResetText();
+            txtNombre.ResetText();
+            txtDescripcion.ResetText();
+            txtWorkHours.ResetText();
+            txtTotalHour.ResetText();
+        }
+
+        private void showBtn()
+        {
+            btnIngresar.Enabled = false;
+            btnIngresar.Visible = false;
+
+            btnCancelar.Enabled = true;
+            btnCancelar.Visible = true;
+
+            btnActualizar.Enabled = true;
+            btnActualizar.Visible = true;
+        }
+
+        private void unShow()
+        {
+            btnCancelar.Enabled = false;
+            btnCancelar.Visible = false;
+            btnActualizar.Enabled = false;
+            btnActualizar.Visible = false;
+
+            btnIngresar.Enabled = true;
+            btnIngresar.Visible = true;
+        }
+
     }
 }

@@ -16,6 +16,7 @@ namespace Practico1
             InitializeComponent();
             V_Proyecto v = new V_Proyecto();
             addUserView(v);
+            panelContainer.BackColor = Color.Beige;
         }
 
         private void addUserView(UserControl userControl)
