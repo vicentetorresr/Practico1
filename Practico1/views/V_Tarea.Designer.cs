@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             dgvTareas = new DataGridView();
+            cbProyectos = new ComboBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTareas).BeginInit();
             SuspendLayout();
             // 
@@ -44,19 +46,42 @@
             dgvTareas.Size = new Size(827, 208);
             dgvTareas.TabIndex = 0;
             // 
+            // cbProyectos
+            // 
+            cbProyectos.FormattingEnabled = true;
+            cbProyectos.Location = new Point(15, 36);
+            cbProyectos.Name = "cbProyectos";
+            cbProyectos.Size = new Size(329, 23);
+            cbProyectos.TabIndex = 1;
+            cbProyectos.SelectedIndexChanged += CbProyectos_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(15, 18);
+            label1.Name = "label1";
+            label1.Size = new Size(59, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Proyectos";
+            // 
             // V_Tarea
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label1);
+            Controls.Add(cbProyectos);
             Controls.Add(dgvTareas);
             Name = "V_Tarea";
             Size = new Size(833, 372);
             ((System.ComponentModel.ISupportInitialize)dgvTareas).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private DataGridView dgvTareas;
+        private ComboBox cbProyectos;
+        private Label label1;
     }
 }

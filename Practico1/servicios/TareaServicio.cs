@@ -70,6 +70,39 @@ namespace Practico1.servicios
             return tarea;
         }
 
+        // metodo cargar tareas por proyecto
+        public async Task<List<Tarea>> GetTareasPorProyecto(string proyectoIdStr)
+        {
+            var tareas = new List<Tarea>();
+            string path = $"/tasks/{proyectoIdStr}{groupKey}";
+            string body = "";
+
+            try
+            {
+                var jsonRespuestaApi = await SendTransaction(path, body, "GET");
+
+                if (jsonRespuestaApi != null && !string.IsNullOrEmpty(jsonRespuestaApi.Data.ToString()))
+                {
+                    var respuestaApi = JsonSerializer.Deserialize<RespuestaListaDeTareas>(jsonRespuestaApi.Data.ToString());
+
+                    if (respuestaApi != null && respuestaApi.Data != null)
+                    {
+                        tareas = respuestaApi.Data;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+
+            return tareas;
+        }
+
+
+
+
         // Método para crear una nueva tarea (Create)
         public async Task<string> Create(object nuevaTarea)
         {
