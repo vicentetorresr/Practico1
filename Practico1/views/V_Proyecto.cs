@@ -20,13 +20,16 @@ namespace Practico1.views
 
         public V_Proyecto()
         {
+            init();
+        }
+        private void init()
+        {
             InitializeComponent();
             proyectoServicio = new ProyectoServicio();
             proyectos = new BindingList<Proyecto>();
             dgvProyecto.DataSource = proyectos;
             CargarProyectos();
         }
-
         private async void CargarProyectos()
         {
             try
@@ -124,7 +127,11 @@ namespace Practico1.views
                 // Verificar si el campo ID no está vacío y es un número válido
                 if (int.TryParse(txtId.Text, out int projectId))
                 {
-                    try
+                    // Verificar si los campos de horas son números válidos
+                    bool isTotalHoursValid = int.TryParse(txtTotalHour.Text, out int totalHours);
+                    bool isWorkHoursValid = int.TryParse(txtWorkHours.Text, out int workHours);
+
+                    if (isTotalHoursValid && isWorkHoursValid)
                     {
                         // Crear un objeto con los datos actualizados del proyecto
                         var proyectoActualizado = new
@@ -132,8 +139,8 @@ namespace Practico1.views
                             id = projectId,
                             name = txtNombre.Text,
                             description = txtDescripcion.Text,
-                            workerHours = int.TryParse(txtWorkHours.Text, out int workerHours) ? workerHours : 0,
-                            totalHours = int.TryParse(txtTotalHour.Text, out int totalHours) ? totalHours : 0
+                            workerHours = workHours,
+                            totalHours = totalHours
                         };
 
                         // Confirmar la actualización con el usuario
@@ -166,10 +173,10 @@ namespace Practico1.views
                             }
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        // Manejar errores en la preparación del objeto de datos o la lógica de actualización
-                        MessageBox.Show($"Se produjo un error al preparar los datos para la actualización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Mostrar mensaje de error si las horas no son válidas
+                        MessageBox.Show("Por favor, ingrese valores válidos para las horas de trabajo y horas totales.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -183,6 +190,7 @@ namespace Practico1.views
                 MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
         private async void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -265,39 +273,48 @@ namespace Practico1.views
                     return;
                 }
 
+                // Verificar si el campo de horas totales es un número válido
+                bool isTotalHoursValid = int.TryParse(txtTotalHour.Text, out int totalHours);
+
+                if (!isTotalHoursValid)
+                {
+                    MessageBox.Show("Por favor, ingrese un valor válido para las horas totales.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Crear el objeto del nuevo proyecto con los valores de los campos de texto
                 var nuevoProyecto = new
                 {
                     name = txtNombre.Text.Trim(),
                     description = txtDescripcion.Text.Trim(),
                     status = "Pendiente", // Estado inicial del proyecto
-                    totalHours = int.TryParse(txtTotalHour.Text, out int totalHours) ? totalHours : 0,
+                    totalHours = totalHours,
                     created_at = DateTime.Now.ToString("yyyy-MM-dd")
                 };
-                    try
-                    {
-                        // Llamar a la API para crear el nuevo proyecto
-                        ProyectoServicio proyectoServicio = new ProyectoServicio();
-                        string resultado = await proyectoServicio.Create(nuevoProyecto);
 
-                        // Verificar si la creación fue exitosa
-                        if (!string.IsNullOrEmpty(resultado))
-                        {
-                            MessageBox.Show("Proyecto creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            CargarProyectos();
-                            limpiar();
-                    }
-                        else
-                        {
-                            MessageBox.Show("Error al crear el proyecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    catch (Exception ex)
+                try
+                {
+                    // Llamar a la API para crear el nuevo proyecto
+                    ProyectoServicio proyectoServicio = new ProyectoServicio();
+                    string resultado = await proyectoServicio.Create(nuevoProyecto);
+
+                    // Verificar si la creación fue exitosa
+                    if (!string.IsNullOrEmpty(resultado))
                     {
-                        // Manejar cualquier excepción que ocurra durante la llamada a la API
-                        MessageBox.Show($"Se produjo un error al crear el proyecto: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Proyecto creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarProyectos();
+                        limpiar();
                     }
-                
+                    else
+                    {
+                        MessageBox.Show("Error al crear el proyecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Manejar cualquier excepción que ocurra durante la llamada a la API
+                    MessageBox.Show($"Se produjo un error al crear el proyecto: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -305,6 +322,7 @@ namespace Practico1.views
                 MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
 

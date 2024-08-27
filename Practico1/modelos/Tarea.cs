@@ -8,27 +8,34 @@ namespace Practico1.modelos
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("fechaInicio")]
+        [JsonPropertyName("description")]
+        public string Descripcion { get; set; }
+
+        [JsonPropertyName("start_date")]
         public DateTime FechaInicio { get; set; }
 
-        [JsonPropertyName("estado")]
+        [JsonPropertyName("status")]
         public string Estado { get; set; }
 
-        [JsonPropertyName("horas")]
+        [JsonPropertyName("hours")]
         public int Horas { get; set; }
 
         [JsonPropertyName("area")]
         public string Area { get; set; }
 
-        [JsonPropertyName("proyectoId")]
+        [JsonPropertyName("project_id")]
         public int ProyectoId { get; set; } // Clave foránea para Proyecto
 
-        [JsonPropertyName("empleadoAsignadoId")]
+        [JsonPropertyName("user_id")]
         public int EmpleadoAsignadoId { get; set; } // Clave foránea para Usuarios
 
+        // Constructor por defecto
+        public Tarea() { }
+
         // Constructor para inicializar propiedades requeridas
-        public Tarea(DateTime fechaInicio, string estado, int horas, string area, int proyectoId, int empleadoAsignadoId)
+        public Tarea(string descripcion, DateTime fechaInicio, string estado, int horas, string area, int proyectoId, int empleadoAsignadoId)
         {
+            Descripcion = descripcion ?? throw new ArgumentNullException(nameof(descripcion));
             FechaInicio = fechaInicio;
             Estado = estado ?? throw new ArgumentNullException(nameof(estado));
             Horas = horas;

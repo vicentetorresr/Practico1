@@ -80,40 +80,43 @@
             // 
             // btnActualizar
             // 
+            btnActualizar.BackColor = SystemColors.ActiveCaption;
             btnActualizar.Cursor = Cursors.Hand;
             btnActualizar.Enabled = false;
             btnActualizar.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnActualizar.Location = new Point(696, 114);
+            btnActualizar.Location = new Point(600, 117);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(97, 33);
             btnActualizar.TabIndex = 54;
             btnActualizar.Text = "Actualizar";
-            btnActualizar.UseVisualStyleBackColor = true;
+            btnActualizar.UseVisualStyleBackColor = false;
             btnActualizar.Visible = false;
             btnActualizar.Click += btnActualizar_Click;
             // 
             // btnCancelar
             // 
+            btnCancelar.BackColor = Color.LightCoral;
             btnCancelar.Enabled = false;
             btnCancelar.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCancelar.Location = new Point(602, 114);
+            btnCancelar.Location = new Point(705, 117);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(88, 33);
             btnCancelar.TabIndex = 53;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Visible = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
             // btnIngresar
             // 
+            btnIngresar.BackColor = Color.GreenYellow;
             btnIngresar.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnIngresar.Location = new Point(505, 113);
+            btnIngresar.Location = new Point(608, 116);
             btnIngresar.Name = "btnIngresar";
             btnIngresar.Size = new Size(89, 34);
             btnIngresar.TabIndex = 52;
             btnIngresar.Text = "Ingresar";
-            btnIngresar.UseVisualStyleBackColor = true;
+            btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnIngresar_Click;
             // 
             // dgvProyecto
@@ -139,12 +142,14 @@
             btnEliminar_menustrip.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnEliminar_menustrip.Items.AddRange(new ToolStripItem[] { eliminarToolStripMenuItem });
             btnEliminar_menustrip.Name = "btnEliminar_menustrip";
-            btnEliminar_menustrip.Size = new Size(184, 26);
+            btnEliminar_menustrip.ShowImageMargin = false;
+            btnEliminar_menustrip.Size = new Size(159, 48);
             // 
             // eliminarToolStripMenuItem
             // 
+            eliminarToolStripMenuItem.AutoSize = false;
             eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            eliminarToolStripMenuItem.Size = new Size(183, 22);
+            eliminarToolStripMenuItem.Size = new Size(158, 22);
             eliminarToolStripMenuItem.Text = "Eliminar esta fila";
             eliminarToolStripMenuItem.Click += eliminarToolStripMenuItem_Click;
             // 
