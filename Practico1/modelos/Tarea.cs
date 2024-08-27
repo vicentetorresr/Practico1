@@ -47,13 +47,13 @@ namespace Practico1.modelos
             EmpleadoAsignadoId = empleadoAsignadoId ?? throw new ArgumentNullException(nameof(empleadoAsignadoId));
 
             // Validación del estado permitido
-            if (Estado != "Pendiente" && Estado != "En progreso" && Estado != "Finalizado")
+            if (Estado != "pendiente" && Estado != "en progreso" && Estado != "finalizado")
             {
                 throw new ArgumentException("Estado no válido. Valores aceptados: 'Pendiente', 'En progreso', 'Finalizado'.");
             }
 
             // Validación del área permitida
-            if (Area != "Hardware" && Area != "Redes")
+            if (Area != "hardware" && Area != "redes")
             {
                 throw new ArgumentException("Área no válida. Valores aceptados: 'Hardware', 'Redes'.");
             }
