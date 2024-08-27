@@ -75,10 +75,11 @@ namespace Practico1.servicios
 
             try
             {
+                // Serializar el objeto anónimo a JSON, ya que la api debe recibir ese formato, no un obj de .net
                 string proyectoJson = JsonSerializer.Serialize(nuevoProyecto);
                 var jsonRespuestaApi = await SendTransaction(path, proyectoJson, "POST");
 
-                if (jsonRespuestaApi.Code == 201)
+                if (jsonRespuestaApi.Code == 201) //codigo http quiere decir que se creó el proyecto
                 {
                     respuestaApi = jsonRespuestaApi.Message;
                 }
@@ -132,7 +133,6 @@ namespace Practico1.servicios
             try
             {
                 var jsonRespuestaApi = await SendTransaction(path, "", "DELETE");
-
                 // Verificar el código de respuesta para asegurar que la eliminación fue exitosa
                 if (jsonRespuestaApi.Code == 200) // código HTTP 200 significa que la eliminación fue exitosa
                 {
@@ -152,5 +152,8 @@ namespace Practico1.servicios
 
             return respuestaApi;
         }
+
+
+
     }
 }

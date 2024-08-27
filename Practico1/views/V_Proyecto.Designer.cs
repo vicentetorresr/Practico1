@@ -28,25 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             btnActualizar = new Button();
             btnCancelar = new Button();
             btnIngresar = new Button();
             dgvProyecto = new DataGridView();
+            btnEliminar_menustrip = new ContextMenuStrip(components);
+            eliminarToolStripMenuItem = new ToolStripMenuItem();
             label2 = new Label();
             label4 = new Label();
             label3 = new Label();
             label6 = new Label();
             label5 = new Label();
+            label7 = new Label();
             label1 = new Label();
             txtDescripcion = new TextBox();
             txtTotalHour = new TextBox();
+            txtId = new TextBox();
             txtWorkHours = new TextBox();
             txtNombre = new TextBox();
-            label7 = new Label();
-            txtId = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProyecto).BeginInit();
+            btnEliminar_menustrip.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -86,6 +90,7 @@
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Visible = false;
+            btnActualizar.Click += btnActualizar_Click;
             // 
             // btnCancelar
             // 
@@ -109,12 +114,14 @@
             btnIngresar.TabIndex = 52;
             btnIngresar.Text = "Ingresar";
             btnIngresar.UseVisualStyleBackColor = true;
+            btnIngresar.Click += btnIngresar_Click;
             // 
             // dgvProyecto
             // 
             dgvProyecto.AllowUserToAddRows = false;
             dgvProyecto.AllowUserToDeleteRows = false;
             dgvProyecto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProyecto.ContextMenuStrip = btnEliminar_menustrip;
             dgvProyecto.Location = new Point(45, 153);
             dgvProyecto.Name = "dgvProyecto";
             dgvProyecto.ReadOnly = true;
@@ -123,6 +130,21 @@
             dgvProyecto.Size = new Size(748, 214);
             dgvProyecto.TabIndex = 51;
             dgvProyecto.CellClick += dgvProyecto_CellClick;
+            // 
+            // btnEliminar_menustrip
+            // 
+            btnEliminar_menustrip.BackColor = Color.Salmon;
+            btnEliminar_menustrip.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnEliminar_menustrip.Items.AddRange(new ToolStripItem[] { eliminarToolStripMenuItem });
+            btnEliminar_menustrip.Name = "btnEliminar_menustrip";
+            btnEliminar_menustrip.Size = new Size(184, 26);
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            eliminarToolStripMenuItem.Size = new Size(183, 22);
+            eliminarToolStripMenuItem.Text = "Eliminar esta fila";
+            eliminarToolStripMenuItem.Click += eliminarToolStripMenuItem_Click;
             // 
             // label2
             // 
@@ -170,6 +192,15 @@
             label5.TabIndex = 48;
             label5.Text = "Horas trabajadas";
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(45, 12);
+            label7.Name = "label7";
+            label7.Size = new Size(20, 17);
+            label7.TabIndex = 49;
+            label7.Text = "ID";
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -196,8 +227,18 @@
             txtTotalHour.Size = new Size(42, 22);
             txtTotalHour.TabIndex = 41;
             // 
+            // txtId
+            // 
+            txtId.Enabled = false;
+            txtId.Location = new Point(45, 31);
+            txtId.Margin = new Padding(3, 2, 3, 2);
+            txtId.Name = "txtId";
+            txtId.Size = new Size(42, 22);
+            txtId.TabIndex = 42;
+            // 
             // txtWorkHours
             // 
+            txtWorkHours.Enabled = false;
             txtWorkHours.Location = new Point(312, 34);
             txtWorkHours.Margin = new Padding(3, 2, 3, 2);
             txtWorkHours.Name = "txtWorkHours";
@@ -212,24 +253,6 @@
             txtNombre.Size = new Size(201, 22);
             txtNombre.TabIndex = 43;
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(45, 12);
-            label7.Name = "label7";
-            label7.Size = new Size(20, 17);
-            label7.TabIndex = 49;
-            label7.Text = "ID";
-            // 
-            // txtId
-            // 
-            txtId.Enabled = false;
-            txtId.Location = new Point(45, 31);
-            txtId.Margin = new Padding(3, 2, 3, 2);
-            txtId.Name = "txtId";
-            txtId.Size = new Size(42, 22);
-            txtId.TabIndex = 42;
-            // 
             // V_Proyecto
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -241,6 +264,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProyecto).EndInit();
+            btnEliminar_menustrip.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -263,5 +287,7 @@
         private Button btnIngresar;
         private Label label7;
         private TextBox txtId;
+        private ContextMenuStrip btnEliminar_menustrip;
+        private ToolStripMenuItem eliminarToolStripMenuItem;
     }
 }

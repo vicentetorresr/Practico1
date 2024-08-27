@@ -14,10 +14,10 @@ namespace Practico1.http
         public async Task<RespuestaApi> SendTransaction(string pathInfo, string body, string method = "POST")
         {
             string url = baseurl + pathInfo;
-
             Dictionary<string, string> headers = new()
             {
-                /* No se requiere el envío de headers */
+                // Aquí puedes añadir encabezados si es necesario, por ejemplo:
+                // { "Authorization", "Bearer your_token_here" }
             };
 
             return await SendRequestAsync(url, body, method, headers);
@@ -36,6 +36,12 @@ namespace Practico1.http
                     method.Equals("PUT", StringComparison.OrdinalIgnoreCase))
                 {
                     request.Content = new StringContent(body, Encoding.UTF8, "application/json");
+                }
+                // No se establece contenido para DELETE
+                else if (method.Equals("DELETE", StringComparison.OrdinalIgnoreCase))
+                {
+                    // DELETE no suele llevar un cuerpo
+                    request.Content = null;
                 }
 
                 // Agregar headers a la solicitud
