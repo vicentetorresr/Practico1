@@ -37,11 +37,11 @@
             dgvTareas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTareas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvTareas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTareas.Location = new Point(65, 161);
+            dgvTareas.Location = new Point(3, 161);
             dgvTareas.Name = "dgvTareas";
             dgvTareas.RowTemplate.Height = 25;
             dgvTareas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTareas.Size = new Size(685, 208);
+            dgvTareas.Size = new Size(827, 208);
             dgvTareas.TabIndex = 0;
             // 
             // V_Tarea

@@ -47,5 +47,6 @@ namespace Practico1.views
                 MessageBox.Show($"Error al cargar tareas: {ex.Message}");
             }
         }
+
     }
 }

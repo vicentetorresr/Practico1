@@ -18,30 +18,33 @@ namespace Practico1.modelos
         public string Estado { get; set; }
 
         [JsonPropertyName("hours")]
-        public int Horas { get; set; }
+        public string Horas { get; set; } // Deserializa como string y se usa como Horas
+
+        [JsonIgnore]
+        public int HorasInt => int.TryParse(Horas, out int horas) ? horas : 0; // Propiedad que convierte Horas a int
 
         [JsonPropertyName("area")]
         public string Area { get; set; }
 
         [JsonPropertyName("project_id")]
-        public int ProyectoId { get; set; } // Clave foránea para Proyecto
+        public string ProyectoId { get; set; } // Deserializa como string
 
         [JsonPropertyName("user_id")]
-        public int EmpleadoAsignadoId { get; set; } // Clave foránea para Usuarios
+        public string EmpleadoAsignadoId { get; set; } // Deserializa como string
 
         // Constructor por defecto
         public Tarea() { }
 
         // Constructor para inicializar propiedades requeridas
-        public Tarea(string descripcion, DateTime fechaInicio, string estado, int horas, string area, int proyectoId, int empleadoAsignadoId)
+        public Tarea(string descripcion, DateTime fechaInicio, string estado, string horas, string area, string proyectoId, string empleadoAsignadoId)
         {
             Descripcion = descripcion ?? throw new ArgumentNullException(nameof(descripcion));
             FechaInicio = fechaInicio;
             Estado = estado ?? throw new ArgumentNullException(nameof(estado));
-            Horas = horas;
+            Horas = horas ?? throw new ArgumentNullException(nameof(horas));
             Area = area ?? throw new ArgumentNullException(nameof(area));
-            ProyectoId = proyectoId;
-            EmpleadoAsignadoId = empleadoAsignadoId;
+            ProyectoId = proyectoId ?? throw new ArgumentNullException(nameof(proyectoId));
+            EmpleadoAsignadoId = empleadoAsignadoId ?? throw new ArgumentNullException(nameof(empleadoAsignadoId));
 
             // Validación del estado permitido
             if (Estado != "Pendiente" && Estado != "En progreso" && Estado != "Finalizado")
@@ -56,7 +59,7 @@ namespace Practico1.modelos
             }
 
             // Validación de horas mínimas
-            if (Horas < 1)
+            if (int.TryParse(Horas, out int horasInt) && horasInt < 1)
             {
                 throw new ArgumentException("Horas deben ser al menos 1.");
             }

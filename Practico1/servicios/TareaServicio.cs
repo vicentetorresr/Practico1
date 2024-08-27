@@ -25,10 +25,10 @@ namespace Practico1.servicios
 
                 respuestaApi = JsonSerializer.Deserialize<RespuestaListaDeTareas>(jsonRespuestaApi);
 
-                if (respuestaApi.Code != 200)
+                if (respuestaApi == null || respuestaApi.Code != 200)
                 {
-                    // Manejo de error aquí
-                    MessageBox.Show("Error al obtener la lista de tareas: " + respuestaApi.Message);
+                    MessageBox.Show("Error al obtener la lista de tareas: " + respuestaApi?.Message);
+                    return new List<Tarea>();
                 }
             }
             catch (Exception ex)
@@ -38,6 +38,7 @@ namespace Practico1.servicios
             }
             return respuestaApi.Data;
         }
+
 
         // Método para obtener una tarea específica por ID (Read)
         public async Task<Tarea> Show(int tareaId)
