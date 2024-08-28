@@ -19,7 +19,7 @@ namespace Practico1.modelos
         public string Status { get; set; }
 
         [JsonPropertyName("hours")]
-        public int Hours { get; set; } 
+        public int Hours { get; set; }
 
         [JsonPropertyName("area")]
         public string Area { get; set; }

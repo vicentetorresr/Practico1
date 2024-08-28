@@ -12,11 +12,11 @@ namespace Practico1.views
     public partial class V_Tarea : UserControl
     {
         private const string Format = "yyyy-MM-dd";
-        private TareaServicio tareaServicio; // Servicio para tareas
-        private ProyectoServicio proyectoServicio; // Servicio para proyectos
-        private UsuarioServicio usuarioServicio; // Servicio para usuarios
+        private TareaServicio tareaServicio;
+        private ProyectoServicio proyectoServicio;
+        private UsuarioServicio usuarioServicio;
 
-        private BindingList<Tarea> tareas; // Lista enlazada para tareas
+        private BindingList<Tarea> tareas;
         private BindingList<Usuario> usuarios;
 
         int idProyec;
@@ -43,8 +43,8 @@ namespace Practico1.views
 
         private async void CargarProyectos()
         {
-            try { 
-
+            try
+            {
                 // Llamar al método Index del servicio para obtener la lista de proyectos
                 List<Proyecto> listaDeProyectos = await proyectoServicio.Index();
 
@@ -58,7 +58,6 @@ namespace Practico1.views
                 MessageBox.Show($"Error al cargar proyectos: {ex.Message}");
             }
         }
-
 
         private async void CargarTareas()
         {
@@ -97,7 +96,6 @@ namespace Practico1.views
             }
         }
 
-
         private async void CargarUsuarios()
         {
             try
@@ -116,35 +114,19 @@ namespace Practico1.views
             }
         }
 
-        private void dgvTareas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Asegurarse de que se seleccionó una fila válida
-            /*
-            if (e.RowIndex >= 0)
-            {
-                var selectedRow = dgvTareas.Rows[e.RowIndex];
-                txtDescripcion.Text = selectedRow.Cells["Descripcion"].Value?.ToString() ?? string.Empty;
-                txtHoras.Text = selectedRow.Cells["Horas"].Value?.ToString() ?? "0"; // Asignar valor de horas
-                cbArea.SelectedItem = selectedRow.Cells["Area"].Value?.ToString() ?? string.Empty;
-                cbProyectos.SelectedValue = selectedRow.Cells["ProyectoId"].Value?.ToString() ?? string.Empty;
-                cbUsuarioAsignado.SelectedValue = selectedRow.Cells["EmpleadoAsignadoId"].Value?.ToString() ?? string.Empty;
-            }
-            */
-        }
-
         private void cbProyectos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedValue = (int) cbProyectos.SelectedValue;
+            int selectedValue = (int)cbProyectos.SelectedValue;
             idProyec = selectedValue;
         }
 
         private void cbUsuarioAsignado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedValue = (int)cbUsuarioAsignado.SelectedValue ;
+            int selectedValue = (int)cbUsuarioAsignado.SelectedValue;
             idUsu = selectedValue;
         }
 
-        private async void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnIngresar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -181,6 +163,7 @@ namespace Practico1.views
                     {
                         CargarTareas();
                         MessageBox.Show("Tarea guardada exitosamente.");
+                        limpiar();
                     }
                     else
                     {
@@ -198,23 +181,303 @@ namespace Practico1.views
             }
         }
 
+        private async void btnActualizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificar si el campo ID no está vacío y es un número válido
+                if (int.TryParse(txtId.Text, out int tareaId))
+                {
+                    // Verificar si los campos de horas son números válidos
+                    bool isHoursValid = int.TryParse(txtHoras.Text, out int horas);
+                    var fech = DateTime.Now.ToString("yyyy-MM-dd");
+                    if (isHoursValid)
+                    {
+                        // Crear un objeto con los datos actualizados de la tarea
+                        var tareaActualizada = new Tarea
+                        {
+                            Id = tareaId,
+                            Description = txtDescripcion.Text.Trim(),
+                            Start_date = fech,
+                            Status = "pendiente",
+                            Hours = horas,
+                            Area = (string)cbArea.SelectedItem,
+                            Project_id = idProyec,
+                            User_id = idUsu
+                        };
+
+                        // Confirmar la actualización con el usuario
+                        DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea actualizar esta tarea?", "Confirmar Actualización", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            try
+                            {
+                                // Llamar a la API para actualizar la tarea
+                                string resultado = await tareaServicio.Update(tareaId, tareaActualizada);
+
+                                // Verificar si la actualización fue exitosa
+                                if (!string.IsNullOrEmpty(resultado))
+                                {
+                                    MessageBox.Show("Tarea actualizada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    CargarTareas();
+                                    limpiar();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Error al actualizar la tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // Manejar cualquier excepción que ocurra durante la llamada a la API
+                                MessageBox.Show($"Se produjo un error al actualizar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Mostrar mensaje de error si las horas no son válidas
+                        MessageBox.Show("Por favor, ingrese valores válidos para las horas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un ID de tarea válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores generales no anticipados
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void btnEliminar_menustrip_Opening(object sender, CancelEventArgs e)
+        {
+             try
+             {
+                 if (int.TryParse(txtId.Text, out int tareaId))
+                 {
+                     DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea eliminar esta tarea?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                     if (dialogResult == DialogResult.Yes)
+                     {
+                         string resultado = await tareaServicio.Delete(tareaId);
+
+                         if (!string.IsNullOrEmpty(resultado))
+                         {
+                             MessageBox.Show("Tarea eliminada exitosamente.");
+                             CargarTareas();
+                             limpiar();
+                         }
+                         else
+                         {
+                             MessageBox.Show("Error al eliminar la tarea.");
+                         }
+                     }
+                 }
+                 else
+                 {
+                     MessageBox.Show("Por favor, seleccione una tarea para eliminar.");
+                 }
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show($"Error al eliminar la tarea: {ex.Message}");
+             }
+        }
+
+        private void limpiar()
+        {
+            try
+            {
+                // Verificar que cada control no sea null antes de acceder a sus propiedades
+                if (txtDescripcion != null)
+                {
+                    txtDescripcion.Text = string.Empty;
+                }
+
+                if (txtHoras != null)
+                {
+                    txtHoras.Text = "0";
+                }
+
+                // Verificar si el ComboBox 'cbArea' no es null y tiene elementos antes de intentar cambiar el índice seleccionado
+                if (cbArea != null && cbArea.Items.Count > 0)
+                {
+                    cbArea.SelectedIndex = -1;
+                }
+
+                // Verificar si el ComboBox 'cbProyectos' no es null y tiene elementos antes de intentar cambiar el índice seleccionado
+                if (cbProyectos != null)
+                {
+                    try
+                    {
+                        // Intentar acceder a los elementos del ComboBox
+                        if (cbProyectos.Items.Count > 0)
+                        {
+                            cbProyectos.SelectedIndex = -1;
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        // Manejar error de índice fuera de rango para 'cbProyectos'
+                        //MessageBox.Show($"Error al restablecer la selección de 'cbProyectos': {ex.Message}", "Error de Índice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar cualquier otro error inesperado con 'cbProyectos'
+                        //MessageBox.Show($"Ocurrió un error inesperado con 'cbProyectos': {ex.Message}", "Error Inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                // Verificar si el ComboBox 'cbUsuarioAsignado' no es null y tiene elementos antes de intentar cambiar el índice seleccionado
+                if (cbUsuarioAsignado != null)
+                {
+                    try
+                    {
+                        // Intentar acceder a los elementos del ComboBox
+                        if (cbUsuarioAsignado.Items.Count > 0)
+                        {
+                            cbUsuarioAsignado.SelectedIndex = -1;
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        // Manejar error de índice fuera de rango para 'cbUsuarioAsignado'
+                        //MessageBox.Show($"Error al restablecer la selección de 'cbUsuarioAsignado': {ex.Message}", "Error de Índice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar cualquier otro error inesperado con 'cbUsuarioAsignado'
+                        //MessageBox.Show($"Ocurrió un error inesperado con 'cbUsuarioAsignado': {ex.Message}", "Error Inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                if (txtId != null)
+                {
+                    txtId.Text = string.Empty;
+                }
+
+                // Verificar que el método unShow() existe antes de llamarlo
+                unShow();
+            }
+            catch (NullReferenceException ex)
+            {
+                // Manejar el caso cuando algún control es nulo
+                MessageBox.Show($"Error al acceder a un control de la interfaz: {ex.Message}", "Error de Referencia Nula", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Manejo general de errores para cualquier otra excepción
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}", "Error Inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
 
 
+        private void showBtn()
+        {
+            btnIngresar.Enabled = false;
+            btnIngresar.Visible = false;
 
+            btnCancelar.Enabled = true;
+            btnCancelar.Visible = true;
 
+            btnActualizar.Enabled = true;
+            btnActualizar.Visible = true;
+        }
 
+        private void unShow()
+        {
+            btnCancelar.Enabled = false;
+            btnCancelar.Visible = false;
+            btnActualizar.Enabled = false;
+            btnActualizar.Visible = false;
 
+            btnIngresar.Enabled = true;
+            btnIngresar.Visible = true;
+        }
 
+        private void dgvTareas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvTareas.Columns[e.ColumnIndex].Name == "Status" && e.Value != null)
+            {
+                string status = e.Value.ToString();
+                if (status == "pendiente")
+                {
+                    e.CellStyle.BackColor = System.Drawing.Color.Red;
+                }
+                else if (status == "en progreso")
+                {
+                    e.CellStyle.BackColor = System.Drawing.Color.Yellow;
+                }
+                else if (status == "finalizado")
+                {
+                    e.CellStyle.BackColor = System.Drawing.Color.Green;
+                }
+            }
+        }
 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limpiar();
+        }
 
+        private void dgvTareas_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                // Verificar que la fila seleccionada no sea la fila del encabezado (índice de fila -1)
+                if (e.RowIndex >= 0)
+                {
+                    // Obtener la fila seleccionada
+                    DataGridViewRow selectedRow = dgvTareas.Rows[e.RowIndex];
 
+                    // Establecer los valores de las celdas en los campos de texto correspondientes
+                    txtId.Text = selectedRow.Cells["Id"].Value.ToString();
+                    txtDescripcion.Text = selectedRow.Cells["Description"].Value?.ToString() ?? string.Empty;
+                    txtHoras.Text = selectedRow.Cells["Hours"].Value?.ToString() ?? "0"; // Asignar valor de horas
 
+                    // Verificar que las celdas de ComboBox no sean nulas antes de asignar valores
+                    var areaValue = selectedRow.Cells["Area"].Value?.ToString() ?? string.Empty;
+                    if (!string.IsNullOrEmpty(areaValue) && cbArea.Items.Contains(areaValue))
+                    {
+                        cbArea.SelectedItem = areaValue;
+                    }
+                    else
+                    {
+                        cbArea.SelectedIndex = -1; // Si el valor no está en la lista, deselecciona
+                    }
 
+                    var proyectoIdValue = selectedRow.Cells["Project_id"].Value;
+                    if (proyectoIdValue != null)
+                    {
+                        cbProyectos.SelectedValue = proyectoIdValue;
+                    }
+                    else
+                    {
+                        cbProyectos.SelectedIndex = -1;
+                    }
 
+                    var usuarioIdValue = selectedRow.Cells["User_id"].Value;
+                    if (usuarioIdValue != null)
+                    {
+                        cbUsuarioAsignado.SelectedValue = usuarioIdValue;
+                    }
+                    else
+                    {
+                        cbUsuarioAsignado.SelectedIndex = -1;
+                    }
 
-
+                    showBtn();
+                }
+            }
+            catch { 
+            }
+        }
 
     }
 }

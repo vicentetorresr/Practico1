@@ -144,6 +144,7 @@ namespace Practico1.servicios
             {
                 // Serializar el objeto actualizado a JSON
                 string tareaJson = JsonSerializer.Serialize(tareaActualizada);
+                Clipboard.SetDataObject(tareaJson);
                 var jsonRespuestaApi = await SendTransaction(path, tareaJson, "PUT");
 
                 // Verificar el código de respuesta para asegurar que la actualización fue exitosa
