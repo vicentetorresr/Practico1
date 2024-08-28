@@ -102,7 +102,6 @@ namespace Practico1.servicios
 
 
 
-
         // Método para crear una nueva tarea (Create)
         public async Task<string> Create(object nuevaTarea)
         {
@@ -112,26 +111,26 @@ namespace Practico1.servicios
             try
             {
                 string tareaJson = JsonSerializer.Serialize(nuevaTarea);
-                var jsonRespuestaApi = await SendTransaction(path, tareaJson, "POST");
 
-                if (jsonRespuestaApi.Code == 201) // código HTTP 201 significa que la creación fue exitosa
+                var jsonRespuestaApi = await SendTransaction(path, tareaJson, "POST");
+                if (jsonRespuestaApi.Code == 201)
                 {
                     respuestaApi = jsonRespuestaApi.Message;
                 }
                 else
                 {
-                    // Manejo de error cuando el código de respuesta no es el esperado
-                    MessageBox.Show("Error al crear la tarea: " + jsonRespuestaApi.Message);
+                    MessageBox.Show($"Error al crear la tarea: {jsonRespuestaApi.Message}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                throw;
+                MessageBox.Show($"Se produjo un error: {ex.Message}");
+                throw; // Volver a lanzar la excepción para que el llamador pueda manejarla si es necesario
             }
 
             return respuestaApi;
         }
+
 
         // Método para actualizar una tarea existente (Update)
         public async Task<string> Update(int tareaId, object tareaActualizada)

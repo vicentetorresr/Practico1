@@ -5,20 +5,22 @@ using System.Threading.Tasks;
 using Practico1.modelos;
 using Practico1.servicios;
 using System.Windows.Forms;
+using System.Text.Json;
 
 namespace Practico1.views
 {
     public partial class V_Tarea : UserControl
     {
+        private const string Format = "yyyy-MM-dd";
         private TareaServicio tareaServicio; // Servicio para tareas
         private ProyectoServicio proyectoServicio; // Servicio para proyectos
         private UsuarioServicio usuarioServicio; // Servicio para usuarios
 
         private BindingList<Tarea> tareas; // Lista enlazada para tareas
-        private BindingList<Usuario> usuario;
+        private BindingList<Usuario> usuarios;
 
-        int idProyec;
-        int idUsu;
+        string idProyec;
+        string idUsu;
 
         public V_Tarea()
         {
@@ -30,17 +32,18 @@ namespace Practico1.views
             tareas = new BindingList<Tarea>();
             dgvTareas.DataSource = tareas;
 
+            idProyec = "0";
+            idUsu = "0";
+
             // Cargar datos en los ComboBoxes
             CargarTareas();
             CargarProyectos();
-            CargarUsuarios(); // Asegúrate de llamar a CargarUsuarios
+            CargarUsuarios();
         }
 
         private async void CargarProyectos()
         {
-            try
-            {
-                cbProyectos.Items.Insert(0, "Todos");
+            try { 
 
                 // Llamar al método Index del servicio para obtener la lista de proyectos
                 List<Proyecto> listaDeProyectos = await proyectoServicio.Index();
@@ -56,12 +59,26 @@ namespace Practico1.views
             }
         }
 
+
         private async void CargarTareas()
         {
             try
             {
                 // Llamar al método Index del servicio para obtener la lista de tareas
                 List<Tarea> listaDeTareas = await tareaServicio.Index();
+
+                // Verificar si la lista de tareas es nula
+                if (listaDeTareas == null)
+                {
+                    MessageBox.Show("No se obtuvieron tareas del servicio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Asegurarse de que la lista de tareas esté inicializada
+                if (tareas == null)
+                {
+                    tareas = new BindingList<Tarea>();
+                }
 
                 // Asignar la lista de tareas al BindingList
                 tareas.Clear();
@@ -70,11 +87,16 @@ namespace Practico1.views
                     tareas.Add(tarea);
                 }
             }
+            catch (JsonException jsonEx)
+            {
+                MessageBox.Show($"Error en el procesamiento de datos JSON al cargar tareas: {jsonEx.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar tareas: {ex.Message}");
+                MessageBox.Show($"Error al cargar tareas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private async void CargarUsuarios()
         {
@@ -96,24 +118,115 @@ namespace Practico1.views
 
         private void dgvTareas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // aqui debe cargar la tarea de la tabla a los inputs
+            // Asegurarse de que se seleccionó una fila válida
+            /*
+            if (e.RowIndex >= 0)
+            {
+                var selectedRow = dgvTareas.Rows[e.RowIndex];
+                txtDescripcion.Text = selectedRow.Cells["Descripcion"].Value?.ToString() ?? string.Empty;
+                txtHoras.Text = selectedRow.Cells["Horas"].Value?.ToString() ?? "0"; // Asignar valor de horas
+                cbArea.SelectedItem = selectedRow.Cells["Area"].Value?.ToString() ?? string.Empty;
+                cbProyectos.SelectedValue = selectedRow.Cells["ProyectoId"].Value?.ToString() ?? string.Empty;
+                cbUsuarioAsignado.SelectedValue = selectedRow.Cells["EmpleadoAsignadoId"].Value?.ToString() ?? string.Empty;
+            }
+            */
         }
 
         private void cbProyectos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Almacenamos la variable que este en el combobox
-            idProyec = (int)cbProyectos.SelectedValue;
+            var selectedValue = cbProyectos.SelectedValue as string;
+            if (!string.IsNullOrEmpty(selectedValue) && selectedValue != "Todos")
+            {
+                idProyec = (selectedValue);
+            }
+            else
+            {
+                idProyec = "1"; // O algún valor predeterminado que indique "Todos"
+            }
         }
 
         private void cbUsuarioAsignado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            idUsu = (int)cbUsuarioAsignado.SelectedValue;
+            var selectedValue = cbUsuarioAsignado.SelectedValue as string;
+            if (!string.IsNullOrEmpty(selectedValue))
+            {
+                idUsu = (selectedValue);
+
+            }
+            else
+            {
+                idUsu = "1"; // O algún valor predeterminado que indique "Todos"
+            }
         }
 
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string horasText = txtHoras.Text;
+                var fech = DateTime.Now.ToString("dd-MM-yyyy");
+                if (int.TryParse(horasText, out int horas) && horas >= 0)
+                {
+                    string area = (string) cbArea.SelectedItem;
+                    if (string.IsNullOrEmpty(area) || string.IsNullOrEmpty(idProyec) || string.IsNullOrEmpty(idUsu))
+                    {
+                        MessageBox.Show("Por favor, complete todos los campos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    // Crear una instancia de Tarea
+                    var nuevaTarea = new Tarea
+                    {
+                        Id = 103,
+                        Description = txtDescripcion.Text.Trim(),
+                        Start_date = fech,
+                        Status = "pendiente",
+                        Hours = horasText,
+                        Area = area,
+                        Project_id = idProyec,
+                        User_id = idUsu
+                    };
 
 
+                    TareaServicio tareaServicio = new TareaServicio();
+                    string resultado = await tareaServicio.Create(nuevaTarea);
+
+                    if (!string.IsNullOrEmpty(resultado))
+                    {
+                        CargarTareas();
+                        MessageBox.Show("Tarea guardada exitosamente.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al guardar la tarea.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un valor válido para las horas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

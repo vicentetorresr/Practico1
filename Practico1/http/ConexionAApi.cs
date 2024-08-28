@@ -14,6 +14,7 @@ namespace Practico1.http
         public async Task<RespuestaApi> SendTransaction(string pathInfo, string body, string method = "POST")
         {
             string url = baseurl + pathInfo;
+            Clipboard.SetDataObject(body);
             Dictionary<string, string> headers = new()
             {
                 // Aquí puedes añadir encabezados si es necesario, por ejemplo:

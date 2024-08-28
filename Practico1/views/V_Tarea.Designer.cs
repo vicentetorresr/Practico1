@@ -13,10 +13,6 @@ namespace Practico1.views
         private System.Windows.Forms.Label lblHoras;
         private System.Windows.Forms.Label lblArea;
         private System.Windows.Forms.TextBox txtDescripcion;
-        private System.Windows.Forms.DateTimePicker dtpFechaInicio;
-        private System.Windows.Forms.ComboBox cbEstado;
-        private System.Windows.Forms.NumericUpDown nudHoras;
-        private System.Windows.Forms.TextBox txtArea;
         private System.Windows.Forms.Button btnGuardar;
 
         protected override void Dispose(bool disposing)
@@ -39,15 +35,13 @@ namespace Practico1.views
             lblHoras = new Label();
             lblArea = new Label();
             txtDescripcion = new TextBox();
-            dtpFechaInicio = new DateTimePicker();
-            cbEstado = new ComboBox();
-            nudHoras = new NumericUpDown();
-            txtArea = new TextBox();
             btnGuardar = new Button();
             label1 = new Label();
             label2 = new Label();
+            textBox1 = new TextBox();
+            cbArea = new ComboBox();
+            txtHoras = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvTareas).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudHoras).BeginInit();
             SuspendLayout();
             // 
             // dgvTareas
@@ -151,44 +145,9 @@ namespace Practico1.views
             txtDescripcion.Size = new Size(232, 23);
             txtDescripcion.TabIndex = 4;
             // 
-            // dtpFechaInicio
-            // 
-            dtpFechaInicio.Location = new Point(307, 25);
-            dtpFechaInicio.Margin = new Padding(4);
-            dtpFechaInicio.Name = "dtpFechaInicio";
-            dtpFechaInicio.Size = new Size(232, 23);
-            dtpFechaInicio.TabIndex = 6;
-            // 
-            // cbEstado
-            // 
-            cbEstado.FormattingEnabled = true;
-            cbEstado.Items.AddRange(new object[] { "Pendiente", "En progreso", "Completada" });
-            cbEstado.Location = new Point(307, 116);
-            cbEstado.Margin = new Padding(4);
-            cbEstado.Name = "cbEstado";
-            cbEstado.Size = new Size(232, 23);
-            cbEstado.TabIndex = 8;
-            // 
-            // nudHoras
-            // 
-            nudHoras.Location = new Point(35, 166);
-            nudHoras.Margin = new Padding(4);
-            nudHoras.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-            nudHoras.Name = "nudHoras";
-            nudHoras.Size = new Size(234, 23);
-            nudHoras.TabIndex = 10;
-            // 
-            // txtArea
-            // 
-            txtArea.Location = new Point(307, 74);
-            txtArea.Margin = new Padding(4);
-            txtArea.Name = "txtArea";
-            txtArea.Size = new Size(232, 23);
-            txtArea.TabIndex = 12;
-            // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(338, 160);
+            btnGuardar.Location = new Point(307, 167);
             btnGuardar.Margin = new Padding(4);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(201, 26);
@@ -219,21 +178,44 @@ namespace Practico1.views
             label2.TabIndex = 15;
             label2.Text = "USUARIO ASIGNADO";
             // 
+            // textBox1
+            // 
+            textBox1.Enabled = false;
+            textBox1.Location = new Point(307, 118);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 16;
+            // 
+            // cbArea
+            // 
+            cbArea.FormattingEnabled = true;
+            cbArea.Items.AddRange(new object[] { "hardware", "redes" });
+            cbArea.Location = new Point(307, 72);
+            cbArea.Name = "cbArea";
+            cbArea.Size = new Size(121, 23);
+            cbArea.TabIndex = 18;
+            // 
+            // txtHoras
+            // 
+            txtHoras.Location = new Point(35, 167);
+            txtHoras.Name = "txtHoras";
+            txtHoras.Size = new Size(121, 23);
+            txtHoras.TabIndex = 19;
+            // 
             // V_Tarea
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(txtHoras);
+            Controls.Add(cbArea);
+            Controls.Add(textBox1);
             Controls.Add(dgvTareas);
             Controls.Add(btnGuardar);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(txtArea);
             Controls.Add(lblArea);
-            Controls.Add(nudHoras);
             Controls.Add(lblHoras);
-            Controls.Add(cbEstado);
             Controls.Add(lblEstado);
-            Controls.Add(dtpFechaInicio);
             Controls.Add(lblFechaInicio);
             Controls.Add(txtDescripcion);
             Controls.Add(lblDescripcion);
@@ -244,7 +226,6 @@ namespace Practico1.views
             Size = new Size(1040, 519);
             Load += V_Tarea_Load_1;
             ((System.ComponentModel.ISupportInitialize)dgvTareas).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudHoras).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -255,5 +236,8 @@ namespace Practico1.views
 
         private Label label1;
         private Label label2;
+        private TextBox textBox1;
+        private ComboBox cbArea;
+        private TextBox txtHoras;
     }
 }
