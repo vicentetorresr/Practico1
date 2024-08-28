@@ -63,10 +63,9 @@
             panel1.Controls.Add(guna2CirclePictureBox1);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(pictureBox1);
-            panel1.Location = new Point(-542, -1);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(-474, -1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(2489, 85);
+            panel1.Size = new Size(2178, 64);
             panel1.TabIndex = 16;
             // 
             // btnSalir
@@ -81,13 +80,13 @@
             btnSalir.IconColor = Color.White;
             btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnSalir.IconSize = 20;
-            btnSalir.Location = new Point(1722, 6);
+            btnSalir.Location = new Point(1507, 4);
+            btnSalir.Margin = new Padding(3, 2, 3, 2);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(57, 36);
+            btnSalir.Size = new Size(50, 27);
             btnSalir.TabIndex = 0;
             btnSalir.UseVisualStyleBackColor = false;
             btnSalir.Click += iconButton1_Click;
-            btnSalir.MouseHover += btnsalir_MouseHover;
             // 
             // btnExpadir
             // 
@@ -98,9 +97,10 @@
             btnExpadir.IconColor = Color.White;
             btnExpadir.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnExpadir.IconSize = 20;
-            btnExpadir.Location = new Point(1664, 6);
+            btnExpadir.Location = new Point(1456, 4);
+            btnExpadir.Margin = new Padding(3, 2, 3, 2);
             btnExpadir.Name = "btnExpadir";
-            btnExpadir.Size = new Size(47, 36);
+            btnExpadir.Size = new Size(41, 27);
             btnExpadir.TabIndex = 0;
             btnExpadir.UseVisualStyleBackColor = false;
             btnExpadir.Click += btnExpadir_Click;
@@ -111,9 +111,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Palatino Linotype", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(826, 6);
+            label1.Location = new Point(723, 4);
             label1.Name = "label1";
-            label1.Size = new Size(88, 18);
+            label1.Size = new Size(78, 16);
             label1.TabIndex = 5;
             label1.Text = "PRACTICO 1";
             label1.Click += label1_Click;
@@ -123,12 +123,11 @@
             guna2CirclePictureBox1.Anchor = AnchorStyles.Top;
             guna2CirclePictureBox1.Image = Properties.Resources.logocftBChopped;
             guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(1412, 1);
-            guna2CirclePictureBox1.Margin = new Padding(3, 4, 3, 4);
+            guna2CirclePictureBox1.Location = new Point(1236, 1);
             guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
             guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges1;
             guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox1.Size = new Size(148, 80);
+            guna2CirclePictureBox1.Size = new Size(130, 60);
             guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             guna2CirclePictureBox1.TabIndex = 2;
             guna2CirclePictureBox1.TabStop = false;
@@ -139,9 +138,9 @@
             label7.AutoSize = true;
             label7.Font = new Font("Verdana", 22.2F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(808, 28);
+            label7.Location = new Point(707, 21);
             label7.Name = "label7";
-            label7.Size = new Size(538, 45);
+            label7.Size = new Size(437, 36);
             label7.TabIndex = 1;
             label7.Text = "GESTION DE PROYECTOS";
             // 
@@ -149,10 +148,9 @@
             // 
             pictureBox1.Anchor = AnchorStyles.Top;
             pictureBox1.Image = Properties.Resources._4893207;
-            pictureBox1.Location = new Point(673, 6);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
+            pictureBox1.Location = new Point(589, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(90, 67);
+            pictureBox1.Size = new Size(79, 50);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -164,10 +162,9 @@
             panel2.Controls.Add(btnUsuario);
             panel2.Controls.Add(btnTarea);
             panel2.Controls.Add(btnProyectos);
-            panel2.Location = new Point(-348, 84);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(-304, 63);
             panel2.Name = "panel2";
-            panel2.Size = new Size(2489, 85);
+            panel2.Size = new Size(2178, 64);
             panel2.TabIndex = 17;
             panel2.Paint += panel2_Paint;
             // 
@@ -185,11 +182,10 @@
             btnUsuario.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnUsuario.ForeColor = Color.White;
             btnUsuario.HoverState.CustomBorderColor = Color.FromArgb(192, 0, 0);
-            btnUsuario.Location = new Point(1180, 17);
-            btnUsuario.Margin = new Padding(3, 4, 3, 4);
+            btnUsuario.Location = new Point(1032, 13);
             btnUsuario.Name = "btnUsuario";
             btnUsuario.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            btnUsuario.Size = new Size(303, 60);
+            btnUsuario.Size = new Size(265, 45);
             btnUsuario.TabIndex = 0;
             btnUsuario.Text = "USUARIOS";
             btnUsuario.Click += btnUsuario_Click;
@@ -208,11 +204,10 @@
             btnTarea.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnTarea.ForeColor = Color.White;
             btnTarea.HoverState.CustomBorderColor = Color.FromArgb(192, 0, 0);
-            btnTarea.Location = new Point(809, 17);
-            btnTarea.Margin = new Padding(3, 4, 3, 4);
+            btnTarea.Location = new Point(708, 13);
             btnTarea.Name = "btnTarea";
             btnTarea.ShadowDecoration.CustomizableEdges = customizableEdges5;
-            btnTarea.Size = new Size(320, 60);
+            btnTarea.Size = new Size(280, 45);
             btnTarea.TabIndex = 0;
             btnTarea.Text = "TAREAS";
             btnTarea.Click += btnTarea_Click;
@@ -232,11 +227,10 @@
             btnProyectos.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnProyectos.ForeColor = Color.White;
             btnProyectos.HoverState.CustomBorderColor = Color.FromArgb(192, 0, 0);
-            btnProyectos.Location = new Point(462, 17);
-            btnProyectos.Margin = new Padding(3, 4, 3, 4);
+            btnProyectos.Location = new Point(404, 13);
             btnProyectos.Name = "btnProyectos";
             btnProyectos.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            btnProyectos.Size = new Size(303, 60);
+            btnProyectos.Size = new Size(265, 45);
             btnProyectos.TabIndex = 0;
             btnProyectos.Text = "PROYECTOS";
             btnProyectos.Click += btnProyectos_Click;
@@ -245,23 +239,21 @@
             // 
             panelContainer.Anchor = AnchorStyles.Top;
             panelContainer.BackColor = SystemColors.ControlDark;
-            panelContainer.Location = new Point(12, 215);
-            panelContainer.Margin = new Padding(3, 4, 3, 4);
+            panelContainer.Location = new Point(10, 161);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(1225, 690);
+            panelContainer.Size = new Size(1072, 518);
             panelContainer.TabIndex = 18;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightGoldenrodYellow;
-            ClientSize = new Size(1249, 907);
+            ClientSize = new Size(1093, 680);
             Controls.Add(panelContainer);
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

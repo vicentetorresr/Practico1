@@ -64,7 +64,7 @@ namespace Practico1
             else
             {
                 // Salir de pantalla completa
-                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Normal;
                 this.TopMost = false;
                 isFullScreen = false;
@@ -91,7 +91,7 @@ namespace Practico1
             else
             {
                 // Salir de pantalla completa
-                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Normal;
                 this.TopMost = false;
                 isFullScreen = false;

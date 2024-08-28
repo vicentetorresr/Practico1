@@ -17,6 +17,9 @@ namespace Practico1.views
         private BindingList<Tarea> tareas; // Lista enlazada para tareas
         private BindingList<Usuario> usuario;
 
+        int idProyec;
+        int idUsu;
+
         public V_Tarea()
         {
             InitializeComponent();
@@ -43,8 +46,8 @@ namespace Practico1.views
                 List<Proyecto> listaDeProyectos = await proyectoServicio.Index();
 
                 // Configurar el ComboBox
-                cbProyectos.DisplayMember = "Name";  // Verifica que "Name" sea el nombre correcto de la propiedad
-                cbProyectos.ValueMember = "Id";      // Verifica que "Id" sea el nombre correcto de la propiedad
+                cbProyectos.DisplayMember = "Name";
+                cbProyectos.ValueMember = "Id";
                 cbProyectos.DataSource = listaDeProyectos;
             }
             catch (Exception ex)
@@ -91,29 +94,24 @@ namespace Practico1.views
             }
         }
 
-        private void lblDescripcion_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void dgvTareas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            // aqui debe cargar la tarea de la tabla a los inputs
         }
 
         private void cbProyectos_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Almacenamos la variable que este en el combobox
+            idProyec = (int)cbProyectos.SelectedValue;
         }
 
-        private  async void btnGuardar_Click(object sender, EventArgs e)
+        private void cbUsuarioAsignado_SelectedIndexChanged(object sender, EventArgs e)
         {
+            idUsu = (int)cbUsuarioAsignado.SelectedValue;
+        }
 
+        private async void btnGuardar_Click(object sender, EventArgs e)
+        {
 
 
         }
