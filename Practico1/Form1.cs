@@ -10,6 +10,7 @@ namespace Practico1
 {
     public partial class Form1 : Form
     {
+        private bool isFullScreen = false;
 
         public Form1()
         {
@@ -47,6 +48,75 @@ namespace Practico1
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnPantallaCompleta_Click(object sender, EventArgs e)
+        {
+
+            if (!isFullScreen)
+            {
+                // Cambiar a pantalla completa
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+                this.TopMost = true;
+                isFullScreen = true;
+            }
+            else
+            {
+                // Salir de pantalla completa
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+                this.TopMost = false;
+                isFullScreen = false;
+            }
+
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExpadir_Click(object sender, EventArgs e)
+        {
+            if (!isFullScreen)
+            {
+                // Cambiar a pantalla completa
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+                this.TopMost = true;
+                isFullScreen = true;
+            }
+            else
+            {
+                // Salir de pantalla completa
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+                this.TopMost = false;
+                isFullScreen = false;
+            }
+
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnsalir_MouseHover(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -55,6 +55,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(btnActualizar);
             panel1.Controls.Add(btnCancelar);
@@ -72,7 +73,6 @@
             panel1.Controls.Add(txtId);
             panel1.Controls.Add(txtWorkHours);
             panel1.Controls.Add(txtNombre);
-            panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(833, 372);
@@ -83,39 +83,39 @@
             btnActualizar.BackColor = SystemColors.ActiveCaption;
             btnActualizar.Cursor = Cursors.Hand;
             btnActualizar.Enabled = false;
-            btnActualizar.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnActualizar.Location = new Point(600, 117);
+            btnActualizar.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnActualizar.Location = new Point(566, 116);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(97, 33);
+            btnActualizar.Size = new Size(131, 33);
             btnActualizar.TabIndex = 54;
-            btnActualizar.Text = "Actualizar";
+            btnActualizar.Text = "ACTUALIZAR";
             btnActualizar.UseVisualStyleBackColor = false;
             btnActualizar.Visible = false;
             btnActualizar.Click += btnActualizar_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.BackColor = Color.LightCoral;
+            btnCancelar.BackColor = Color.Red;
             btnCancelar.Enabled = false;
-            btnCancelar.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCancelar.Location = new Point(705, 117);
+            btnCancelar.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCancelar.Location = new Point(705, 116);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(88, 33);
+            btnCancelar.Size = new Size(123, 31);
             btnCancelar.TabIndex = 53;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Visible = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
             // btnIngresar
             // 
-            btnIngresar.BackColor = Color.GreenYellow;
-            btnIngresar.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnIngresar.Location = new Point(608, 116);
+            btnIngresar.BackColor = Color.LimeGreen;
+            btnIngresar.Font = new Font("Palatino Linotype", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            btnIngresar.Location = new Point(580, 116);
             btnIngresar.Name = "btnIngresar";
-            btnIngresar.Size = new Size(89, 34);
+            btnIngresar.Size = new Size(117, 34);
             btnIngresar.TabIndex = 52;
-            btnIngresar.Text = "Ingresar";
+            btnIngresar.Text = "INGRESAR";
             btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnIngresar_Click;
             // 
@@ -123,6 +123,7 @@
             // 
             dgvProyecto.AllowUserToAddRows = false;
             dgvProyecto.AllowUserToDeleteRows = false;
+            dgvProyecto.Anchor = AnchorStyles.Top;
             dgvProyecto.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProyecto.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvProyecto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -130,6 +131,7 @@
             dgvProyecto.Location = new Point(45, 153);
             dgvProyecto.Name = "dgvProyecto";
             dgvProyecto.ReadOnly = true;
+            dgvProyecto.RowHeadersWidth = 51;
             dgvProyecto.RowTemplate.Height = 25;
             dgvProyecto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProyecto.Size = new Size(748, 214);
@@ -139,11 +141,12 @@
             // btnEliminar_menustrip
             // 
             btnEliminar_menustrip.BackColor = Color.Salmon;
-            btnEliminar_menustrip.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnEliminar_menustrip.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnEliminar_menustrip.ImageScalingSize = new Size(20, 20);
             btnEliminar_menustrip.Items.AddRange(new ToolStripItem[] { eliminarToolStripMenuItem });
             btnEliminar_menustrip.Name = "btnEliminar_menustrip";
             btnEliminar_menustrip.ShowImageMargin = false;
-            btnEliminar_menustrip.Size = new Size(159, 48);
+            btnEliminar_menustrip.Size = new Size(197, 26);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -159,63 +162,70 @@
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(45, 135);
             label2.Name = "label2";
-            label2.Size = new Size(110, 15);
+            label2.Size = new Size(159, 20);
             label2.TabIndex = 44;
-            label2.Text = "Tabla de proyectos";
+            label2.Text = "TABLA DE PROYECTO";
             // 
             // label4
             // 
             label4.AutoSize = true;
+            label4.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label4.Location = new Point(312, 133);
             label4.Name = "label4";
-            label4.Size = new Size(48, 17);
+            label4.Size = new Size(74, 21);
             label4.TabIndex = 45;
-            label4.Text = "Estado";
+            label4.Text = "ESTADO";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(93, 68);
+            label3.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Location = new Point(93, 62);
             label3.Name = "label3";
-            label3.Size = new Size(82, 17);
+            label3.Size = new Size(120, 21);
             label3.TabIndex = 46;
-            label3.Text = "Descripción:";
+            label3.Text = "DESCRIPCIÓN";
             // 
             // label6
             // 
             label6.AutoSize = true;
+            label6.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(312, 68);
             label6.Name = "label6";
-            label6.Size = new Size(86, 17);
+            label6.Size = new Size(143, 21);
             label6.TabIndex = 47;
-            label6.Text = "Horas Totales";
+            label6.Text = "HORAS TOTALES";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(312, 15);
+            label5.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(312, 8);
             label5.Name = "label5";
-            label5.Size = new Size(109, 17);
+            label5.Size = new Size(178, 21);
             label5.TabIndex = 48;
-            label5.Text = "Horas trabajadas";
+            label5.Text = "HORAS TRABAJADAS";
             // 
             // label7
             // 
             label7.AutoSize = true;
+            label7.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label7.Location = new Point(45, 12);
             label7.Name = "label7";
-            label7.Size = new Size(20, 17);
+            label7.Size = new Size(28, 21);
             label7.TabIndex = 49;
             label7.Text = "ID";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(93, 15);
+            label1.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(96, 8);
             label1.Name = "label1";
-            label1.Size = new Size(62, 17);
+            label1.Size = new Size(89, 21);
             label1.TabIndex = 49;
-            label1.Text = "Nombre: ";
+            label1.Text = "NOMBRE: ";
+            label1.TextAlign = ContentAlignment.BottomLeft;
             // 
             // txtDescripcion
             // 
@@ -231,7 +241,7 @@
             txtTotalHour.Location = new Point(312, 87);
             txtTotalHour.Margin = new Padding(3, 2, 3, 2);
             txtTotalHour.Name = "txtTotalHour";
-            txtTotalHour.Size = new Size(42, 22);
+            txtTotalHour.Size = new Size(42, 24);
             txtTotalHour.TabIndex = 41;
             // 
             // txtId
@@ -240,16 +250,16 @@
             txtId.Location = new Point(45, 31);
             txtId.Margin = new Padding(3, 2, 3, 2);
             txtId.Name = "txtId";
-            txtId.Size = new Size(42, 22);
+            txtId.Size = new Size(42, 24);
             txtId.TabIndex = 42;
             // 
             // txtWorkHours
             // 
             txtWorkHours.Enabled = false;
-            txtWorkHours.Location = new Point(312, 34);
+            txtWorkHours.Location = new Point(312, 31);
             txtWorkHours.Margin = new Padding(3, 2, 3, 2);
             txtWorkHours.Name = "txtWorkHours";
-            txtWorkHours.Size = new Size(42, 22);
+            txtWorkHours.Size = new Size(42, 24);
             txtWorkHours.TabIndex = 42;
             // 
             // txtNombre
@@ -257,15 +267,15 @@
             txtNombre.Location = new Point(93, 31);
             txtNombre.Margin = new Padding(3, 2, 3, 2);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(201, 22);
+            txtNombre.Size = new Size(201, 24);
             txtNombre.TabIndex = 43;
             // 
             // V_Proyecto
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
-            Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "V_Proyecto";
             Size = new Size(833, 372);
             panel1.ResumeLayout(false);

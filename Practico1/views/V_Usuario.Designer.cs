@@ -34,24 +34,28 @@
             // 
             // dgvUsuario
             // 
+            dgvUsuario.Anchor = AnchorStyles.Top;
             dgvUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvUsuario.BorderStyle = BorderStyle.Fixed3D;
             dgvUsuario.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsuario.Location = new Point(59, 60);
+            dgvUsuario.Location = new Point(3, 79);
+            dgvUsuario.Margin = new Padding(3, 4, 3, 4);
             dgvUsuario.Name = "dgvUsuario";
+            dgvUsuario.RowHeadersWidth = 51;
             dgvUsuario.RowTemplate.Height = 25;
             dgvUsuario.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsuario.Size = new Size(699, 278);
+            dgvUsuario.Size = new Size(949, 417);
             dgvUsuario.TabIndex = 0;
             // 
             // V_Usuario
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(dgvUsuario);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "V_Usuario";
-            Size = new Size(833, 372);
+            Size = new Size(952, 496);
             ((System.ComponentModel.ISupportInitialize)dgvUsuario).EndInit();
             ResumeLayout(false);
         }
