@@ -19,8 +19,8 @@ namespace Practico1.views
         private BindingList<Tarea> tareas; // Lista enlazada para tareas
         private BindingList<Usuario> usuarios;
 
-        string idProyec;
-        string idUsu;
+        int idProyec;
+        int idUsu;
 
         public V_Tarea()
         {
@@ -32,8 +32,8 @@ namespace Practico1.views
             tareas = new BindingList<Tarea>();
             dgvTareas.DataSource = tareas;
 
-            idProyec = "0";
-            idUsu = "0";
+            idProyec = 1;
+            idUsu = 1;
 
             // Cargar datos en los ComboBoxes
             CargarTareas();
@@ -134,29 +134,14 @@ namespace Practico1.views
 
         private void cbProyectos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedValue = cbProyectos.SelectedValue as string;
-            if (!string.IsNullOrEmpty(selectedValue) && selectedValue != "Todos")
-            {
-                idProyec = (selectedValue);
-            }
-            else
-            {
-                idProyec = "1"; // O algún valor predeterminado que indique "Todos"
-            }
+            int selectedValue = (int) cbProyectos.SelectedValue;
+            idProyec = selectedValue;
         }
 
         private void cbUsuarioAsignado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedValue = cbUsuarioAsignado.SelectedValue as string;
-            if (!string.IsNullOrEmpty(selectedValue))
-            {
-                idUsu = (selectedValue);
-
-            }
-            else
-            {
-                idUsu = "1"; // O algún valor predeterminado que indique "Todos"
-            }
+            int selectedValue = (int)cbUsuarioAsignado.SelectedValue ;
+            idUsu = selectedValue;
         }
 
         private async void btnGuardar_Click(object sender, EventArgs e)
@@ -164,28 +149,30 @@ namespace Practico1.views
             try
             {
                 string horasText = txtHoras.Text;
-                var fech = DateTime.Now.ToString("dd-MM-yyyy");
+                var fech = DateTime.Now.ToString("yyyy-MM-dd");
+
                 if (int.TryParse(horasText, out int horas) && horas >= 0)
                 {
-                    string area = (string) cbArea.SelectedItem;
-                    if (string.IsNullOrEmpty(area) || string.IsNullOrEmpty(idProyec) || string.IsNullOrEmpty(idUsu))
+                    string area = (string)cbArea.SelectedItem;
+
+                    // Verificar si idProyec e idUsu son mayores o iguales a 0
+                    if (string.IsNullOrEmpty(area) || idProyec < 0 || idUsu < 0)
                     {
                         MessageBox.Show("Por favor, complete todos los campos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+
                     // Crear una instancia de Tarea
                     var nuevaTarea = new Tarea
                     {
-                        Id = 103,
                         Description = txtDescripcion.Text.Trim(),
                         Start_date = fech,
                         Status = "pendiente",
-                        Hours = horasText,
+                        Hours = horas,
                         Area = area,
                         Project_id = idProyec,
                         User_id = idUsu
                     };
-
 
                     TareaServicio tareaServicio = new TareaServicio();
                     string resultado = await tareaServicio.Create(nuevaTarea);
@@ -210,6 +197,7 @@ namespace Practico1.views
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
 
 
 

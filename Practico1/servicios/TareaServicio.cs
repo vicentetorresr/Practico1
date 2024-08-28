@@ -103,13 +103,14 @@ namespace Practico1.servicios
 
 
         // Método para crear una nueva tarea (Create)
-        public async Task<string> Create(object nuevaTarea)
+        public async Task<string> Create(Tarea nuevaTarea)
         {
             string respuestaApi = null;
             string path = $"/tasks{groupKey}";
 
             try
             {
+                // Serializar el objeto actualizado a JSON
                 string tareaJson = JsonSerializer.Serialize(nuevaTarea);
 
                 var jsonRespuestaApi = await SendTransaction(path, tareaJson, "POST");
@@ -130,6 +131,7 @@ namespace Practico1.servicios
 
             return respuestaApi;
         }
+
 
 
         // Método para actualizar una tarea existente (Update)
