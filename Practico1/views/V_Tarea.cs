@@ -28,7 +28,6 @@ namespace Practico1.views
             tareaServicio = new TareaServicio();
             proyectoServicio = new ProyectoServicio(); // Inicializar el servicio de proyectos
             usuarioServicio = new UsuarioServicio();   // Inicializar el servicio de usuarios
-
             tareas = new BindingList<Tarea>();
             dgvTareas.DataSource = tareas;
 
@@ -328,37 +327,37 @@ namespace Practico1.views
 
         private async void btnEliminar_menustrip_Opening(object sender, CancelEventArgs e)
         {
-             try
-             {
-                 if (int.TryParse(txtId.Text, out int tareaId))
-                 {
-                     DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea eliminar esta tarea?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            try
+            {
+                if (int.TryParse(txtId.Text, out int tareaId))
+                {
+                    DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea eliminar esta tarea?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                     if (dialogResult == DialogResult.Yes)
-                     {
-                         string resultado = await tareaServicio.Delete(tareaId);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string resultado = await tareaServicio.Delete(tareaId);
 
-                         if (!string.IsNullOrEmpty(resultado))
-                         {
-                             MessageBox.Show("Tarea eliminada exitosamente.");
-                             CargarTareas();
-                             limpiar();
-                         }
-                         else
-                         {
-                             MessageBox.Show("Error al eliminar la tarea.");
-                         }
-                     }
-                 }
-                 else
-                 {
-                     MessageBox.Show("Por favor, seleccione una tarea para eliminar.");
-                 }
-             }
-             catch (Exception ex)
-             {
-                 MessageBox.Show($"Error al eliminar la tarea: {ex.Message}");
-             }
+                        if (!string.IsNullOrEmpty(resultado))
+                        {
+                            MessageBox.Show("Tarea eliminada exitosamente.");
+                            CargarTareas();
+                            limpiar();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al eliminar la tarea.");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una tarea para eliminar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar la tarea: {ex.Message}");
+            }
         }
 
         private void limpiar()
@@ -548,9 +547,100 @@ namespace Practico1.views
                     showBtn();
                 }
             }
-            catch { 
+            catch
+            {
+            }
+        }
+
+
+        private async void btnFinalizar_menustrip_Opening(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("Por favor, seleccione una opcion.");
+        }
+
+        private async void eliminaarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (int.TryParse(txtId.Text, out int tareaId))
+                {
+                    DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea eliminar esta tarea?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string resultado = await tareaServicio.Delete(tareaId);
+
+                        if (!string.IsNullOrEmpty(resultado))
+                        {
+                            MessageBox.Show("Tarea eliminada exitosamente.");
+                            CargarTareas();
+                            limpiar();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al eliminar la tarea.");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una tarea para eliminar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar la tarea: {ex.Message}");
+            }
+        }
+
+        private async void FinalizartoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (int.TryParse(txtId.Text, out int tareaId))
+                {
+                    DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea finalizar esta tarea?", "Confirmar Finalización", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        var tarea = await tareaServicio.Show(tareaId); // Obtener la tarea por ID
+                        if (tarea != null)
+                        {
+                            // Actualizar el estado de la tarea a "finalizado"
+                            tarea.Status = "finalizado";
+
+                            // Llamar al servicio para actualizar la tarea
+                            string resultado = await tareaServicio.Update(tareaId, tarea);
+
+                            if (!string.IsNullOrEmpty(resultado))
+                            {
+                                MessageBox.Show("Tarea finalizada exitosamente.");
+                                CargarTareas(); // Recargar la lista de tareas
+                                limpiar(); // Limpiar los campos
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al finalizar la tarea.");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Tarea no encontrada.");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una opcion.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error : {ex.Message}");
             }
         }
 
     }
+    
+
 }

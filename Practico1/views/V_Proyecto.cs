@@ -384,6 +384,80 @@ namespace Practico1.views
             }
         }
 
+        private async void FinalizarProyectotoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificar si hay una fila seleccionada en el DataGridView
+                if (dgvProyecto.CurrentRow != null && dgvProyecto.CurrentRow.Index >= 0)
+                {
+                    // Obtener el índice de la fila seleccionada
+                    int rowIndex = dgvProyecto.CurrentRow.Index;
+
+                    // Obtener el ID del proyecto de la fila seleccionada
+                    if (int.TryParse(dgvProyecto.Rows[rowIndex].Cells["id"].Value.ToString(), out int projectId))
+                    {
+                        // Confirmar la finalización con el usuario
+                        DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea finalizar este proyecto?", "Confirmar Finalización", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            try
+                            {
+                                // Crear un objeto con el estado actualizado del proyecto
+                                var proyectoFinalizado = new
+                                {
+                                    id = projectId,
+                                    status = "Finalizado" // Estado actualizado del proyecto
+                                };
+
+                                // Llamar a la API para actualizar el estado del proyecto
+                                ProyectoServicio proyectoServicio = new ProyectoServicio();
+                                string resultado = await proyectoServicio.Update(projectId, proyectoFinalizado);
+
+                                // Verificar si la actualización fue exitosa
+                                if (!string.IsNullOrEmpty(resultado))
+                                {
+                                    MessageBox.Show("Proyecto finalizado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    CargarProyectos();
+                                    limpiar();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Error al finalizar el proyecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // Manejar cualquier excepción que ocurra durante la llamada a la API
+                                MessageBox.Show($"Se produjo un error al finalizar el proyecto: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("ID del proyecto no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione un proyecto para finalizar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores generales no anticipados
+                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private void btnEliminar_menustrip_Opening(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("Por favor, seleccione una opcion.");
+        }
+
 
 
 

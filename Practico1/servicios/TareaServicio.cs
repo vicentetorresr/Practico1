@@ -40,6 +40,8 @@ namespace Practico1.servicios
         }
 
 
+
+
         // metodo cargar tareas por proyecto
         // Método para obtener tareas filtradas por proyecto
         public async Task<List<Tarea>> GetTareasPorProyecto(int proyectoId)

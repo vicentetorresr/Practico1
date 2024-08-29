@@ -37,6 +37,8 @@
             dgvProyecto = new DataGridView();
             btnEliminar_menustrip = new ContextMenuStrip(components);
             eliminarToolStripMenuItem = new ToolStripMenuItem();
+            FinalizarProyectotoolStripMenuItem = new ToolStripMenuItem();
+            lblTareas = new Label();
             label2 = new Label();
             label3 = new Label();
             label6 = new Label();
@@ -48,7 +50,6 @@
             txtId = new TextBox();
             txtWorkHours = new TextBox();
             txtNombre = new TextBox();
-            lblTareas = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLoadTareas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProyecto).BeginInit();
@@ -159,21 +160,41 @@
             // 
             // btnEliminar_menustrip
             // 
-            btnEliminar_menustrip.BackColor = Color.Salmon;
+            btnEliminar_menustrip.BackColor = Color.Red;
             btnEliminar_menustrip.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnEliminar_menustrip.ImageScalingSize = new Size(20, 20);
-            btnEliminar_menustrip.Items.AddRange(new ToolStripItem[] { eliminarToolStripMenuItem });
+            btnEliminar_menustrip.Items.AddRange(new ToolStripItem[] { eliminarToolStripMenuItem, FinalizarProyectotoolStripMenuItem });
             btnEliminar_menustrip.Name = "btnEliminar_menustrip";
             btnEliminar_menustrip.ShowImageMargin = false;
-            btnEliminar_menustrip.Size = new Size(165, 26);
+            btnEliminar_menustrip.Size = new Size(207, 78);
+            btnEliminar_menustrip.Opening += btnEliminar_menustrip_Opening;
             // 
             // eliminarToolStripMenuItem
             // 
             eliminarToolStripMenuItem.AutoSize = false;
+            eliminarToolStripMenuItem.BackColor = Color.Red;
             eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             eliminarToolStripMenuItem.Size = new Size(158, 22);
             eliminarToolStripMenuItem.Text = "Eliminar esta fila";
             eliminarToolStripMenuItem.Click += eliminarToolStripMenuItem_Click;
+            // 
+            // FinalizarProyectotoolStripMenuItem
+            // 
+            FinalizarProyectotoolStripMenuItem.BackColor = Color.MediumTurquoise;
+            FinalizarProyectotoolStripMenuItem.Name = "FinalizarProyectotoolStripMenuItem";
+            FinalizarProyectotoolStripMenuItem.Size = new Size(206, 24);
+            FinalizarProyectotoolStripMenuItem.Text = "Finalizar Proyecto";
+            FinalizarProyectotoolStripMenuItem.Click += FinalizarProyectotoolStripMenuItem_Click;
+            // 
+            // lblTareas
+            // 
+            lblTareas.AutoSize = true;
+            lblTareas.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTareas.Location = new Point(3, 427);
+            lblTareas.Name = "lblTareas";
+            lblTareas.Size = new Size(117, 20);
+            lblTareas.TabIndex = 44;
+            lblTareas.Text = "TABLA TAREAS";
             // 
             // label2
             // 
@@ -181,7 +202,7 @@
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(3, 193);
             label2.Name = "label2";
-            label2.Size = new Size(124, 15);
+            label2.Size = new Size(159, 20);
             label2.TabIndex = 44;
             label2.Text = "TABLA DE PROYECTO";
             // 
@@ -191,7 +212,7 @@
             label3.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(208, 123);
             label3.Name = "label3";
-            label3.Size = new Size(97, 17);
+            label3.Size = new Size(120, 21);
             label3.TabIndex = 46;
             label3.Text = "DESCRIPCIÓN";
             // 
@@ -201,7 +222,7 @@
             label6.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(428, 123);
             label6.Name = "label6";
-            label6.Size = new Size(114, 17);
+            label6.Size = new Size(143, 21);
             label6.TabIndex = 47;
             label6.Text = "HORAS TOTALES";
             // 
@@ -211,7 +232,7 @@
             label5.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label5.Location = new Point(428, 69);
             label5.Name = "label5";
-            label5.Size = new Size(140, 17);
+            label5.Size = new Size(178, 21);
             label5.TabIndex = 48;
             label5.Text = "HORAS TRABAJADAS";
             // 
@@ -221,7 +242,7 @@
             label7.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label7.Location = new Point(45, 21);
             label7.Name = "label7";
-            label7.Size = new Size(23, 17);
+            label7.Size = new Size(28, 21);
             label7.TabIndex = 49;
             label7.Text = "ID";
             // 
@@ -231,7 +252,7 @@
             label1.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(211, 69);
             label1.Name = "label1";
-            label1.Size = new Size(70, 17);
+            label1.Size = new Size(89, 21);
             label1.TabIndex = 49;
             label1.Text = "NOMBRE: ";
             label1.TextAlign = ContentAlignment.BottomLeft;
@@ -250,7 +271,7 @@
             txtTotalHour.Location = new Point(428, 146);
             txtTotalHour.Margin = new Padding(3, 2, 3, 2);
             txtTotalHour.Name = "txtTotalHour";
-            txtTotalHour.Size = new Size(42, 21);
+            txtTotalHour.Size = new Size(42, 24);
             txtTotalHour.TabIndex = 41;
             // 
             // txtId
@@ -259,7 +280,7 @@
             txtId.Location = new Point(45, 42);
             txtId.Margin = new Padding(3, 2, 3, 2);
             txtId.Name = "txtId";
-            txtId.Size = new Size(42, 21);
+            txtId.Size = new Size(42, 24);
             txtId.TabIndex = 42;
             // 
             // txtWorkHours
@@ -268,7 +289,7 @@
             txtWorkHours.Location = new Point(428, 92);
             txtWorkHours.Margin = new Padding(3, 2, 3, 2);
             txtWorkHours.Name = "txtWorkHours";
-            txtWorkHours.Size = new Size(42, 21);
+            txtWorkHours.Size = new Size(42, 24);
             txtWorkHours.TabIndex = 42;
             // 
             // txtNombre
@@ -276,22 +297,12 @@
             txtNombre.Location = new Point(208, 92);
             txtNombre.Margin = new Padding(3, 2, 3, 2);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(201, 21);
+            txtNombre.Size = new Size(201, 24);
             txtNombre.TabIndex = 43;
-            // 
-            // lblTareas
-            // 
-            lblTareas.AutoSize = true;
-            lblTareas.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTareas.Location = new Point(3, 427);
-            lblTareas.Name = "lblTareas";
-            lblTareas.Size = new Size(89, 15);
-            lblTareas.TabIndex = 44;
-            lblTareas.Text = "TABLA TAREAS";
             // 
             // V_Proyecto
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
             Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -327,5 +338,6 @@
         private ToolStripMenuItem eliminarToolStripMenuItem;
         private DataGridView dgvLoadTareas;
         private Label lblTareas;
+        private ToolStripMenuItem FinalizarProyectotoolStripMenuItem;
     }
 }

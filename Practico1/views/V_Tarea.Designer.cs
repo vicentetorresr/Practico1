@@ -25,8 +25,9 @@ namespace Practico1.views
         {
             components = new System.ComponentModel.Container();
             dgvTareas = new DataGridView();
-            btnEliminar_menustrip = new ContextMenuStrip(components);
-            eliminarToolStripMenuItem = new ToolStripMenuItem();
+            btn_menustrip = new ContextMenuStrip(components);
+            eliminaarToolStripMenuItem = new ToolStripMenuItem();
+            FinalizartoolStripMenuItem = new ToolStripMenuItem();
             cbProyectos = new ComboBox();
             cbUsuarioAsignado = new ComboBox();
             lblDescripcion = new Label();
@@ -43,7 +44,7 @@ namespace Practico1.views
             label3 = new Label();
             txtId = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvTareas).BeginInit();
-            btnEliminar_menustrip.SuspendLayout();
+            btn_menustrip.SuspendLayout();
             SuspendLayout();
             // 
             // dgvTareas
@@ -54,52 +55,58 @@ namespace Practico1.views
             dgvTareas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTareas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvTareas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTareas.ContextMenuStrip = btnEliminar_menustrip;
-            dgvTareas.Location = new Point(34, 254);
-            dgvTareas.Margin = new Padding(4);
+            dgvTareas.ContextMenuStrip = btn_menustrip;
+            dgvTareas.Location = new Point(39, 339);
+            dgvTareas.Margin = new Padding(5);
             dgvTareas.Name = "dgvTareas";
             dgvTareas.ReadOnly = true;
             dgvTareas.RowHeadersWidth = 20;
             dgvTareas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTareas.Size = new Size(972, 261);
+            dgvTareas.Size = new Size(1111, 348);
             dgvTareas.TabIndex = 0;
             dgvTareas.CellClick += dgvTareas_CellClick_1;
             // 
-            // btnEliminar_menustrip
+            // btn_menustrip
             // 
-            btnEliminar_menustrip.BackColor = Color.Salmon;
-            btnEliminar_menustrip.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnEliminar_menustrip.ImageScalingSize = new Size(20, 20);
-            btnEliminar_menustrip.Items.AddRange(new ToolStripItem[] { eliminarToolStripMenuItem });
-            btnEliminar_menustrip.Name = "btnEliminar_menustrip";
-            btnEliminar_menustrip.ShowImageMargin = false;
-            btnEliminar_menustrip.Size = new Size(165, 26);
-            btnEliminar_menustrip.Opening += btnEliminar_menustrip_Opening;
+            btn_menustrip.ImageScalingSize = new Size(20, 20);
+            btn_menustrip.Items.AddRange(new ToolStripItem[] { eliminaarToolStripMenuItem, FinalizartoolStripMenuItem });
+            btn_menustrip.Name = "btnFinalizar_menustrip";
+            btn_menustrip.Size = new Size(178, 52);
+            btn_menustrip.Opening += btnFinalizar_menustrip_Opening;
             // 
-            // eliminarToolStripMenuItem
+            // eliminaarToolStripMenuItem
             // 
-            eliminarToolStripMenuItem.AutoSize = false;
-            eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            eliminarToolStripMenuItem.Size = new Size(158, 22);
-            eliminarToolStripMenuItem.Text = "Eliminar esta fila";
+            eliminaarToolStripMenuItem.BackColor = Color.Red;
+            eliminaarToolStripMenuItem.Name = "eliminaarToolStripMenuItem";
+            eliminaarToolStripMenuItem.Size = new Size(177, 24);
+            eliminaarToolStripMenuItem.Text = "Eliminar Fila ";
+            eliminaarToolStripMenuItem.Click += eliminaarToolStripMenuItem_Click;
+            // 
+            // FinalizartoolStripMenuItem
+            // 
+            FinalizartoolStripMenuItem.BackColor = SystemColors.ActiveCaption;
+            FinalizartoolStripMenuItem.Name = "FinalizartoolStripMenuItem";
+            FinalizartoolStripMenuItem.Size = new Size(177, 24);
+            FinalizartoolStripMenuItem.Text = "Finalizar Status";
+            FinalizartoolStripMenuItem.Click += FinalizartoolStripMenuItem_Click;
             // 
             // cbProyectos
             // 
             cbProyectos.FormattingEnabled = true;
-            cbProyectos.Location = new Point(34, 84);
-            cbProyectos.Margin = new Padding(4);
+            cbProyectos.Location = new Point(39, 112);
+            cbProyectos.Margin = new Padding(5);
             cbProyectos.Name = "cbProyectos";
-            cbProyectos.Size = new Size(232, 23);
+            cbProyectos.Size = new Size(265, 28);
             cbProyectos.TabIndex = 1;
             cbProyectos.SelectedIndexChanged += cbProyectos_SelectedIndexChanged;
             // 
             // cbUsuarioAsignado
             // 
             cbUsuarioAsignado.FormattingEnabled = true;
-            cbUsuarioAsignado.Location = new Point(34, 133);
-            cbUsuarioAsignado.Margin = new Padding(4);
+            cbUsuarioAsignado.Location = new Point(39, 177);
+            cbUsuarioAsignado.Margin = new Padding(5);
             cbUsuarioAsignado.Name = "cbUsuarioAsignado";
-            cbUsuarioAsignado.Size = new Size(232, 23);
+            cbUsuarioAsignado.Size = new Size(265, 28);
             cbUsuarioAsignado.TabIndex = 2;
             cbUsuarioAsignado.SelectedIndexChanged += cbUsuarioAsignado_SelectedIndexChanged;
             // 
@@ -107,10 +114,10 @@ namespace Practico1.views
             // 
             lblDescripcion.AutoSize = true;
             lblDescripcion.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            lblDescripcion.Location = new Point(34, 158);
-            lblDescripcion.Margin = new Padding(4, 0, 4, 0);
+            lblDescripcion.Location = new Point(39, 211);
+            lblDescripcion.Margin = new Padding(5, 0, 5, 0);
             lblDescripcion.Name = "lblDescripcion";
-            lblDescripcion.Size = new Size(91, 17);
+            lblDescripcion.Size = new Size(116, 20);
             lblDescripcion.TabIndex = 3;
             lblDescripcion.Text = "DESCRIPCIÓN";
             // 
@@ -118,10 +125,10 @@ namespace Practico1.views
             // 
             lblHoras.AutoSize = true;
             lblHoras.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lblHoras.Location = new Point(307, 113);
-            lblHoras.Margin = new Padding(4, 0, 4, 0);
+            lblHoras.Location = new Point(351, 151);
+            lblHoras.Margin = new Padding(5, 0, 5, 0);
             lblHoras.Name = "lblHoras";
-            lblHoras.Size = new Size(53, 17);
+            lblHoras.Size = new Size(68, 21);
             lblHoras.TabIndex = 9;
             lblHoras.Text = "HORAS";
             // 
@@ -129,29 +136,29 @@ namespace Practico1.views
             // 
             lblArea.AutoSize = true;
             lblArea.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lblArea.Location = new Point(307, 67);
-            lblArea.Margin = new Padding(4, 0, 4, 0);
+            lblArea.Location = new Point(351, 89);
+            lblArea.Margin = new Padding(5, 0, 5, 0);
             lblArea.Name = "lblArea";
-            lblArea.Size = new Size(42, 17);
+            lblArea.Size = new Size(54, 21);
             lblArea.TabIndex = 11;
             lblArea.Text = "ÁREA";
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(34, 176);
-            txtDescripcion.Margin = new Padding(4);
+            txtDescripcion.Location = new Point(39, 235);
+            txtDescripcion.Margin = new Padding(5);
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(232, 23);
+            txtDescripcion.Size = new Size(265, 27);
             txtDescripcion.TabIndex = 4;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(34, 65);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(39, 87);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(151, 17);
+            label1.Size = new Size(189, 21);
             label1.TabIndex = 14;
             label1.Text = "PROYECTO ASIGNADO";
             // 
@@ -159,10 +166,10 @@ namespace Practico1.views
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(34, 113);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(39, 151);
+            label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new Size(139, 17);
+            label2.Size = new Size(178, 21);
             label2.TabIndex = 15;
             label2.Text = "USUARIO ASIGNADO";
             // 
@@ -170,16 +177,18 @@ namespace Practico1.views
             // 
             cbArea.FormattingEnabled = true;
             cbArea.Items.AddRange(new object[] { "hardware", "redes" });
-            cbArea.Location = new Point(307, 84);
+            cbArea.Location = new Point(351, 112);
+            cbArea.Margin = new Padding(3, 4, 3, 4);
             cbArea.Name = "cbArea";
-            cbArea.Size = new Size(121, 23);
+            cbArea.Size = new Size(138, 28);
             cbArea.TabIndex = 18;
             // 
             // txtHoras
             // 
-            txtHoras.Location = new Point(307, 133);
+            txtHoras.Location = new Point(351, 177);
+            txtHoras.Margin = new Padding(3, 4, 3, 4);
             txtHoras.Name = "txtHoras";
-            txtHoras.Size = new Size(121, 23);
+            txtHoras.Size = new Size(138, 27);
             txtHoras.TabIndex = 19;
             // 
             // btnActualizar
@@ -188,9 +197,10 @@ namespace Practico1.views
             btnActualizar.Cursor = Cursors.Hand;
             btnActualizar.Enabled = false;
             btnActualizar.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnActualizar.Location = new Point(746, 217);
+            btnActualizar.Location = new Point(853, 289);
+            btnActualizar.Margin = new Padding(3, 4, 3, 4);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(131, 33);
+            btnActualizar.Size = new Size(150, 44);
             btnActualizar.TabIndex = 57;
             btnActualizar.Text = "ACTUALIZAR";
             btnActualizar.UseVisualStyleBackColor = false;
@@ -202,9 +212,10 @@ namespace Practico1.views
             btnCancelar.BackColor = Color.Red;
             btnCancelar.Enabled = false;
             btnCancelar.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCancelar.Location = new Point(883, 216);
+            btnCancelar.Location = new Point(1009, 288);
+            btnCancelar.Margin = new Padding(3, 4, 3, 4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(123, 31);
+            btnCancelar.Size = new Size(141, 41);
             btnCancelar.TabIndex = 56;
             btnCancelar.Text = "CANCELAR";
             btnCancelar.UseVisualStyleBackColor = false;
@@ -215,9 +226,10 @@ namespace Practico1.views
             // 
             btnIngresar.BackColor = Color.LimeGreen;
             btnIngresar.Font = new Font("Palatino Linotype", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            btnIngresar.Location = new Point(758, 216);
+            btnIngresar.Location = new Point(866, 288);
+            btnIngresar.Margin = new Padding(3, 4, 3, 4);
             btnIngresar.Name = "btnIngresar";
-            btnIngresar.Size = new Size(117, 34);
+            btnIngresar.Size = new Size(134, 45);
             btnIngresar.TabIndex = 55;
             btnIngresar.Text = "INGRESAR";
             btnIngresar.UseVisualStyleBackColor = false;
@@ -227,24 +239,25 @@ namespace Practico1.views
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(34, 9);
-            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Location = new Point(39, 12);
+            label3.Margin = new Padding(5, 0, 5, 0);
             label3.Name = "label3";
-            label3.Size = new Size(23, 17);
+            label3.Size = new Size(28, 21);
             label3.TabIndex = 9;
             label3.Text = "ID";
             // 
             // txtId
             // 
             txtId.Enabled = false;
-            txtId.Location = new Point(34, 29);
+            txtId.Location = new Point(39, 39);
+            txtId.Margin = new Padding(3, 4, 3, 4);
             txtId.Name = "txtId";
-            txtId.Size = new Size(71, 23);
+            txtId.Size = new Size(81, 27);
             txtId.TabIndex = 58;
             // 
             // V_Tarea
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(txtId);
             Controls.Add(btnActualizar);
@@ -262,12 +275,12 @@ namespace Practico1.views
             Controls.Add(lblDescripcion);
             Controls.Add(cbUsuarioAsignado);
             Controls.Add(cbProyectos);
-            Margin = new Padding(4);
+            Margin = new Padding(5);
             Name = "V_Tarea";
-            Size = new Size(1040, 519);
+            Size = new Size(1189, 692);
             Load += V_Tarea_Load_1;
             ((System.ComponentModel.ISupportInitialize)dgvTareas).EndInit();
-            btnEliminar_menustrip.ResumeLayout(false);
+            btn_menustrip.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -283,9 +296,10 @@ namespace Practico1.views
         private Button btnActualizar;
         private Button btnCancelar;
         private Button btnIngresar;
-        private ContextMenuStrip btnEliminar_menustrip;
-        private ToolStripMenuItem eliminarToolStripMenuItem;
         private Label label3;
         private TextBox txtId;
+        private ContextMenuStrip btn_menustrip;
+        private ToolStripMenuItem FinalizartoolStripMenuItem;
+        private ToolStripMenuItem eliminaarToolStripMenuItem;
     }
 }
