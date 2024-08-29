@@ -1,8 +1,7 @@
 using Practico1.servicios;
 using Practico1.modelos;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 using Practico1.views;
 
@@ -11,6 +10,9 @@ namespace Practico1
     public partial class Form1 : Form
     {
         private bool isFullScreen = false;
+        private bool isDragging = false;
+        private Point lastCursor;
+        private Point formOffset;
 
         public Form1()
         {
@@ -18,6 +20,11 @@ namespace Practico1
             V_Proyecto v = new V_Proyecto();
             addUserView(v);
             panelContainer.BackColor = Color.Beige;
+
+            // Configura eventos para el panel
+            panel1.MouseDown += panel1_MouseDown;
+            panel1.MouseMove += panel1_MouseMove;
+            panel1.MouseUp += panel1_MouseUp;
         }
 
         private void addUserView(UserControl userControl)
@@ -27,6 +34,7 @@ namespace Practico1
             panelContainer.Controls.Add(userControl);
             userControl.BringToFront();
         }
+
         private void btnProyectos_Click(object sender, EventArgs e)
         {
             V_Proyecto v = new V_Proyecto();
@@ -52,7 +60,6 @@ namespace Practico1
 
         private void btnPantallaCompleta_Click(object sender, EventArgs e)
         {
-
             if (!isFullScreen)
             {
                 // Cambiar a pantalla completa
@@ -60,23 +67,15 @@ namespace Practico1
                 this.WindowState = FormWindowState.Maximized;
                 this.TopMost = true;
                 isFullScreen = true;
-                panelContainer.Height = 800;
             }
             else
             {
                 // Salir de pantalla completa
-                this.FormBorderStyle = FormBorderStyle.None;
+                this.FormBorderStyle = FormBorderStyle.Sizable; // Cambiar a Sizable
                 this.WindowState = FormWindowState.Normal;
                 this.TopMost = false;
                 isFullScreen = false;
             }
-
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnExpadir_Click(object sender, EventArgs e)
@@ -92,12 +91,11 @@ namespace Practico1
             else
             {
                 // Salir de pantalla completa
-                this.FormBorderStyle = FormBorderStyle.None;
+                this.FormBorderStyle = FormBorderStyle.Sizable; // Cambiar a Sizable
                 this.WindowState = FormWindowState.Normal;
                 this.TopMost = false;
                 isFullScreen = false;
             }
-
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -105,19 +103,31 @@ namespace Practico1
             Application.Exit();
         }
 
-        private void btnsalir_MouseHover(object sender, EventArgs e)
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                lastCursor = e.Location;
+                formOffset = new Point(this.Left - MousePosition.X, panelContainer.Top - MousePosition.Y);
+            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-
+            if (isDragging)
+            {
+                Point newLocation = new Point(MousePosition.X + formOffset.X, MousePosition.Y + formOffset.Y);
+                this.Location = newLocation;
+            }
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
+            }
         }
     }
 }
