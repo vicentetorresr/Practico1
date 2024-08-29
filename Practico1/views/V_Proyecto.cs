@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +19,10 @@ namespace Practico1.views
         private ProyectoServicio proyectoServicio;
         private BindingList<Proyecto> proyectos;
 
+        private TareaServicio tareaServicio;
+        private BindingList<Tarea> tareas;
+
+
         public V_Proyecto()
         {
             init();
@@ -25,10 +30,18 @@ namespace Practico1.views
         private void init()
         {
             InitializeComponent();
+
+            // Instancia de lista de proyectos
             proyectoServicio = new ProyectoServicio();
             proyectos = new BindingList<Proyecto>();
             dgvProyecto.DataSource = proyectos;
             CargarProyectos();
+
+            // instancia de lista de Task (programando en ingles)
+            tareaServicio = new TareaServicio();
+            tareas = new BindingList<Tarea>();
+            dgvLoadTareas.DataSource = tareas;
+
         }
         private async void CargarProyectos()
         {
@@ -50,35 +63,6 @@ namespace Practico1.views
             }
         }
 
-
-        private void dgvProyecto_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Verificar que la fila seleccionada no sea la fila del encabezado (índice de fila -1)
-            if (e.RowIndex >= 0)
-            {
-                // Obtener la fila seleccionada
-                DataGridViewRow selectedRow = dgvProyecto.Rows[e.RowIndex];
-
-                // Habilitamos campo horas para edicion
-                txtWorkHours.Enabled = true;
-
-                // Establecer los valores de las celdas en los campos de texto correspondientes
-                txtId.Text = selectedRow.Cells["id"].Value.ToString();
-                txtNombre.Text = selectedRow.Cells["name"].Value.ToString();
-                txtDescripcion.Text = selectedRow.Cells["description"].Value.ToString();
-                txtWorkHours.Text = selectedRow.Cells["workerhours"].Value.ToString();
-                txtTotalHour.Text = selectedRow.Cells["totalhours"].Value.ToString();
-
-                // Verifica que los datos de la celda no sean nulos antes de convertirlos a cadena.
-                txtId.Text = selectedRow.Cells["id"].Value?.ToString() ?? string.Empty;
-                txtNombre.Text = selectedRow.Cells["name"].Value?.ToString() ?? string.Empty;
-                txtDescripcion.Text = selectedRow.Cells["description"].Value?.ToString() ?? string.Empty;
-                txtWorkHours.Text = selectedRow.Cells["workerhours"].Value?.ToString() ?? string.Empty;
-                txtTotalHour.Text = selectedRow.Cells["totalhours"].Value?.ToString() ?? string.Empty;
-                showBtn();
-            }
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             limpiar();
@@ -93,6 +77,7 @@ namespace Practico1.views
             txtDescripcion.ResetText();
             txtWorkHours.ResetText();
             txtTotalHour.ResetText();
+            tareas.Clear();
         }
 
         private void showBtn()
@@ -322,6 +307,88 @@ namespace Practico1.views
                 MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        // METODO CLICK AL DATAGRIDVIEW
+        private void dgvProyecto_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar que la fila seleccionada no sea la fila del encabezado (índice de fila -1)
+            if (e.RowIndex >= 0)
+            {
+                // Obtener la fila seleccionada
+                DataGridViewRow selectedRow = dgvProyecto.Rows[e.RowIndex];
+
+                // Establecer los valores de las celdas en los campos de texto correspondientes
+                txtId.Text = selectedRow.Cells["id"].Value.ToString();
+                txtNombre.Text = selectedRow.Cells["name"].Value.ToString();
+                txtDescripcion.Text = selectedRow.Cells["description"].Value.ToString();
+                txtWorkHours.Text = selectedRow.Cells["workerhours"].Value.ToString();
+                txtTotalHour.Text = selectedRow.Cells["totalhours"].Value.ToString();
+
+                // Verifica que los datos de la celda no sean nulos antes de convertirlos a cadena.
+                txtId.Text = selectedRow.Cells["id"].Value?.ToString() ?? string.Empty;
+                txtNombre.Text = selectedRow.Cells["name"].Value?.ToString() ?? string.Empty;
+                txtDescripcion.Text = selectedRow.Cells["description"].Value?.ToString() ?? string.Empty;
+                txtWorkHours.Text = selectedRow.Cells["workerhours"].Value?.ToString() ?? string.Empty;
+                txtTotalHour.Text = selectedRow.Cells["totalhours"].Value?.ToString() ?? string.Empty;
+                showBtn();
+                try
+                {
+                    CargarTareas(int.Parse(txtId.Text));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al mostrar las tareas por proyecto: '" + ex + "'");
+                }
+            }
+        }
+
+
+
+
+        // Cargar tareas xp royecto:
+        private async void CargarTareas(int idProyecto)
+        {
+            try
+            {
+                // Llamar al método GetTareasPorProyecto del servicio para obtener la lista de tareas filtradas
+                List<Tarea> listaDeTareas = await tareaServicio.GetTareasPorProyecto(idProyecto);
+
+                // Verificar si la lista de tareas es nula
+                if (listaDeTareas == null || !listaDeTareas.Any())
+                {
+                    MessageBox.Show("No se obtuvieron tareas del servicio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Asegurarse de que la lista de tareas esté inicializada
+                if (tareas == null)
+                {
+                    tareas = new BindingList<Tarea>();
+                }
+
+                // Limpiar la lista y agregar las tareas obtenidas
+                tareas.Clear();
+                foreach (var tarea in listaDeTareas)
+                {
+                    tareas.Add(tarea);
+                }
+            }
+            catch (JsonException jsonEx)
+            {
+                MessageBox.Show($"Error en el procesamiento de datos JSON al cargar las tareas: {jsonEx.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar las tareas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+
+
 
 
 

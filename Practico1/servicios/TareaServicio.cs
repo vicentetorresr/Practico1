@@ -40,21 +40,63 @@ namespace Practico1.servicios
         }
 
 
-        // Método para obtener una tarea específica por ID (Read)
+        // metodo cargar tareas por proyecto
+        // Método para obtener tareas filtradas por proyecto
+        public async Task<List<Tarea>> GetTareasPorProyecto(int proyectoId)
+        {
+            var tareas = new List<Tarea>();
+            string path = $"/tasks{groupKey}";
+            string body = "";
+
+            try
+            {
+                // Llamar al método Index para obtener todas las tareas
+                var jsonRespuestaApi = await SendTransaction(path, body, "GET");
+                Clipboard.SetDataObject(jsonRespuestaApi);
+                if (jsonRespuestaApi != null && !string.IsNullOrEmpty(jsonRespuestaApi.Data.ToString()))
+                {
+                    // Convertir la respuesta en JSON
+                    string jsonData = jsonRespuestaApi.Data.ToString();
+
+                    // Deserializar el JSON en RespuestaListaDeTareas
+                    var respuestaApi = JsonSerializer.Deserialize<RespuestaListaDeTareas>(jsonData);
+
+                    // Verificar que la respuesta deserializada sea válida
+                    if (respuestaApi != null && respuestaApi.Data != null)
+                    {
+                        // Filtrar las tareas por project_id
+                        tareas = respuestaApi.Data.Where(t => t.Project_id == proyectoId).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+
+            return tareas;
+        }
+
+
+
         public async Task<Tarea> Show(int tareaId)
         {
             Tarea tarea = null;
             string path = $"/tasks/{tareaId}{groupKey}";
             string body = "";
-
             try
             {
                 var jsonRespuestaApi = await SendTransaction(path, body, "GET");
 
                 if (jsonRespuestaApi != null && !string.IsNullOrEmpty(jsonRespuestaApi.Data.ToString()))
                 {
-                    RespuestaTarea respuestaApi = JsonSerializer.Deserialize<RespuestaTarea>(jsonRespuestaApi.Data.ToString());
+                    // Imprimir el JSON devuelto
+                    string jsonData = jsonRespuestaApi.Data.ToString();
+                    MessageBox.Show($"JSON devuelto por la API: {jsonData}");
 
+                    // Deserializar el JSON en una respuesta que contiene la tarea
+                    var respuestaApi = JsonSerializer.Deserialize<RespuestaTarea>(jsonData);
                     if (respuestaApi != null && respuestaApi.Data != null)
                     {
                         tarea = respuestaApi.Data;
@@ -68,36 +110,6 @@ namespace Practico1.servicios
             }
 
             return tarea;
-        }
-
-        // metodo cargar tareas por proyecto
-        public async Task<List<Tarea>> GetTareasPorProyecto(string proyectoIdStr)
-        {
-            var tareas = new List<Tarea>();
-            string path = $"/tasks/{proyectoIdStr}{groupKey}";
-            string body = "";
-
-            try
-            {
-                var jsonRespuestaApi = await SendTransaction(path, body, "GET");
-
-                if (jsonRespuestaApi != null && !string.IsNullOrEmpty(jsonRespuestaApi.Data.ToString()))
-                {
-                    var respuestaApi = JsonSerializer.Deserialize<RespuestaListaDeTareas>(jsonRespuestaApi.Data.ToString());
-
-                    if (respuestaApi != null && respuestaApi.Data != null)
-                    {
-                        tareas = respuestaApi.Data;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                throw;
-            }
-
-            return tareas;
         }
 
 
@@ -144,7 +156,7 @@ namespace Practico1.servicios
             {
                 // Serializar el objeto actualizado a JSON
                 string tareaJson = JsonSerializer.Serialize(tareaActualizada);
-                Clipboard.SetDataObject(tareaJson);
+                
                 var jsonRespuestaApi = await SendTransaction(path, tareaJson, "PUT");
 
                 // Verificar el código de respuesta para asegurar que la actualización fue exitosa

@@ -60,6 +60,7 @@ namespace Practico1
                 this.WindowState = FormWindowState.Maximized;
                 this.TopMost = true;
                 isFullScreen = true;
+                panelContainer.Height = 800;
             }
             else
             {

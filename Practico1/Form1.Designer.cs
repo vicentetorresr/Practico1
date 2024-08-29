@@ -237,7 +237,6 @@
             // 
             // panelContainer
             // 
-            panelContainer.Anchor = AnchorStyles.Top;
             panelContainer.BackColor = SystemColors.ControlDark;
             panelContainer.Location = new Point(10, 161);
             panelContainer.Name = "panelContainer";

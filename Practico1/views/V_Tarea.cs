@@ -144,23 +144,76 @@ namespace Practico1.views
                         return;
                     }
 
+                    // Obtener el proyecto para verificar el total de horas
+                    var proyecto = await proyectoServicio.Show(idProyec);
+
+                    if (proyecto == null)
+                    {
+                        MessageBox.Show("No se encontró el proyecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Convertir TotalHours y WorkerHours a enteros
+                    if (!int.TryParse(proyecto.TotalHours, out int totalHorasProyecto) ||
+                        !int.TryParse(proyecto.WorkerHours, out int workerHorasProyecto))
+                    {
+                        MessageBox.Show("Error al convertir las horas del proyecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Verificar si las horas ingresadas no exceden el total de horas del proyecto
+                    if (workerHorasProyecto + horas > totalHorasProyecto)
+                    {
+                        MessageBox.Show("Las horas ingresadas exceden el total de horas del proyecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Determinar el estado de la tarea
+                    string estadoTarea;
+                    if (workerHorasProyecto + horas == totalHorasProyecto)
+                    {
+                        estadoTarea = "finalizado";
+                    }
+                    else if (workerHorasProyecto + horas > 0)
+                    {
+                        estadoTarea = "en progreso";
+                    }
+                    else
+                    {
+                        estadoTarea = "pendiente";
+                    }
+
                     // Crear una instancia de Tarea
                     var nuevaTarea = new Tarea
                     {
                         Description = txtDescripcion.Text.Trim(),
                         Start_date = fech,
-                        Status = "pendiente",
+                        Status = estadoTarea,
                         Hours = horas,
                         Area = area,
                         Project_id = idProyec,
                         User_id = idUsu
                     };
 
-                    TareaServicio tareaServicio = new TareaServicio();
+                    // Crear la tarea en el servicio
                     string resultado = await tareaServicio.Create(nuevaTarea);
 
                     if (!string.IsNullOrEmpty(resultado))
                     {
+                        // Actualizar el proyecto con las nuevas horas trabajadas
+                        proyecto.WorkerHours = (workerHorasProyecto + horas).ToString();
+                        if (workerHorasProyecto + horas == totalHorasProyecto)
+                        {
+                            proyecto.Status = "finalizado";
+                        }
+                        else if (workerHorasProyecto + horas > 0)
+                        {
+                            proyecto.Status = "en progreso";
+                        }
+
+                        // Actualizar el proyecto en el servicio
+                        await proyectoServicio.Update(idProyec, proyecto);
+
                         CargarTareas();
                         MessageBox.Show("Tarea guardada exitosamente.");
                         limpiar();
@@ -180,6 +233,26 @@ namespace Practico1.views
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private async void btnActualizar_Click(object sender, EventArgs e)
         {
