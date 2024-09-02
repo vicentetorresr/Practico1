@@ -458,15 +458,28 @@ namespace Practico1.views
             MessageBox.Show("Por favor, seleccione una opcion.");
         }
 
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.ToLower().Trim();
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                // Filtrar los datos
+                var proyectosFiltrados = proyectos
+                    .Where(p =>
+                        (p.Name != null && p.Name.ToLower().Contains(filtro)) ||
+                        (p.Description != null && p.Description.ToLower().Contains(filtro)) ||
+                        (p.Status != null && p.Status.ToLower().Contains(filtro))
+                    )
+                    .ToList();
 
-
-
-
-
-
-
-
-
+                dgvProyecto.DataSource = new BindingList<Proyecto>(proyectosFiltrados);
+            }
+            else
+            {
+                // Si el filtro está vacío, muestra todos los datos
+                dgvProyecto.DataSource = proyectos;
+            }
+        }
 
 
         // fin del codigo

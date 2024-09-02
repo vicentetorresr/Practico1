@@ -30,6 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
+            label4 = new Label();
+            txtFiltro = new TextBox();
             btnActualizar = new Button();
             btnCancelar = new Button();
             btnIngresar = new Button();
@@ -60,6 +62,8 @@
             // 
             panel1.Anchor = AnchorStyles.Top;
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(txtFiltro);
             panel1.Controls.Add(btnActualizar);
             panel1.Controls.Add(btnCancelar);
             panel1.Controls.Add(btnIngresar);
@@ -82,12 +86,34 @@
             panel1.Size = new Size(1037, 516);
             panel1.TabIndex = 0;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = SystemColors.Control;
+            label4.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.ForeColor = Color.DodgerBlue;
+            label4.Location = new Point(672, 21);
+            label4.Name = "label4";
+            label4.Size = new Size(134, 13);
+            label4.TabIndex = 56;
+            label4.Text = "FILTRAR POR TEXTO";
+            // 
+            // txtFiltro
+            // 
+            txtFiltro.BackColor = SystemColors.InactiveBorder;
+            txtFiltro.Location = new Point(672, 42);
+            txtFiltro.Name = "txtFiltro";
+            txtFiltro.Size = new Size(100, 21);
+            txtFiltro.TabIndex = 55;
+            txtFiltro.TextChanged += txtFiltro_TextChanged;
+            // 
             // btnActualizar
             // 
-            btnActualizar.BackColor = SystemColors.ActiveCaption;
+            btnActualizar.BackColor = SystemColors.MenuHighlight;
             btnActualizar.Cursor = Cursors.Hand;
             btnActualizar.Enabled = false;
             btnActualizar.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnActualizar.ForeColor = SystemColors.ActiveCaptionText;
             btnActualizar.Location = new Point(672, 175);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(131, 31);
@@ -102,6 +128,7 @@
             btnCancelar.BackColor = Color.Red;
             btnCancelar.Enabled = false;
             btnCancelar.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCancelar.ForeColor = SystemColors.ActiveCaptionText;
             btnCancelar.Location = new Point(811, 175);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(123, 31);
@@ -166,7 +193,7 @@
             btnEliminar_menustrip.Items.AddRange(new ToolStripItem[] { eliminarToolStripMenuItem, FinalizarProyectotoolStripMenuItem });
             btnEliminar_menustrip.Name = "btnEliminar_menustrip";
             btnEliminar_menustrip.ShowImageMargin = false;
-            btnEliminar_menustrip.Size = new Size(207, 78);
+            btnEliminar_menustrip.Size = new Size(175, 48);
             btnEliminar_menustrip.Opening += btnEliminar_menustrip_Opening;
             // 
             // eliminarToolStripMenuItem
@@ -182,7 +209,7 @@
             // 
             FinalizarProyectotoolStripMenuItem.BackColor = Color.MediumTurquoise;
             FinalizarProyectotoolStripMenuItem.Name = "FinalizarProyectotoolStripMenuItem";
-            FinalizarProyectotoolStripMenuItem.Size = new Size(206, 24);
+            FinalizarProyectotoolStripMenuItem.Size = new Size(174, 22);
             FinalizarProyectotoolStripMenuItem.Text = "Finalizar Proyecto";
             FinalizarProyectotoolStripMenuItem.Click += FinalizarProyectotoolStripMenuItem_Click;
             // 
@@ -190,9 +217,10 @@
             // 
             lblTareas.AutoSize = true;
             lblTareas.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTareas.ForeColor = Color.DodgerBlue;
             lblTareas.Location = new Point(3, 427);
             lblTareas.Name = "lblTareas";
-            lblTareas.Size = new Size(117, 20);
+            lblTareas.Size = new Size(89, 15);
             lblTareas.TabIndex = 44;
             lblTareas.Text = "TABLA TAREAS";
             // 
@@ -200,66 +228,72 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(3, 193);
             label2.Name = "label2";
-            label2.Size = new Size(159, 20);
+            label2.Size = new Size(124, 15);
             label2.TabIndex = 44;
             label2.Text = "TABLA DE PROYECTO";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(208, 123);
+            label3.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.DodgerBlue;
+            label3.Location = new Point(45, 73);
             label3.Name = "label3";
-            label3.Size = new Size(120, 21);
+            label3.Size = new Size(91, 13);
             label3.TabIndex = 46;
             label3.Text = "DESCRIPCIÓN";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(428, 123);
+            label6.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.ForeColor = Color.DodgerBlue;
+            label6.Location = new Point(315, 73);
             label6.Name = "label6";
-            label6.Size = new Size(143, 21);
+            label6.Size = new Size(110, 13);
             label6.TabIndex = 47;
             label6.Text = "HORAS TOTALES";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(428, 69);
+            label5.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.ForeColor = Color.DodgerBlue;
+            label5.Location = new Point(316, 19);
             label5.Name = "label5";
-            label5.Size = new Size(178, 21);
+            label5.Size = new Size(134, 13);
             label5.TabIndex = 48;
             label5.Text = "HORAS TRABAJADAS";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.ForeColor = Color.DodgerBlue;
             label7.Location = new Point(45, 21);
             label7.Name = "label7";
-            label7.Size = new Size(28, 21);
+            label7.Size = new Size(20, 13);
             label7.TabIndex = 49;
             label7.Text = "ID";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Palatino Linotype", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(211, 69);
+            label1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.DodgerBlue;
+            label1.Location = new Point(99, 21);
             label1.Name = "label1";
-            label1.Size = new Size(89, 21);
+            label1.Size = new Size(68, 13);
             label1.TabIndex = 49;
             label1.Text = "NOMBRE: ";
             label1.TextAlign = ContentAlignment.BottomLeft;
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(208, 146);
+            txtDescripcion.Location = new Point(45, 96);
             txtDescripcion.Margin = new Padding(3, 2, 3, 2);
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
@@ -268,10 +302,10 @@
             // 
             // txtTotalHour
             // 
-            txtTotalHour.Location = new Point(428, 146);
+            txtTotalHour.Location = new Point(315, 96);
             txtTotalHour.Margin = new Padding(3, 2, 3, 2);
             txtTotalHour.Name = "txtTotalHour";
-            txtTotalHour.Size = new Size(42, 24);
+            txtTotalHour.Size = new Size(42, 21);
             txtTotalHour.TabIndex = 41;
             // 
             // txtId
@@ -280,29 +314,29 @@
             txtId.Location = new Point(45, 42);
             txtId.Margin = new Padding(3, 2, 3, 2);
             txtId.Name = "txtId";
-            txtId.Size = new Size(42, 24);
+            txtId.Size = new Size(42, 21);
             txtId.TabIndex = 42;
             // 
             // txtWorkHours
             // 
             txtWorkHours.Enabled = false;
-            txtWorkHours.Location = new Point(428, 92);
+            txtWorkHours.Location = new Point(316, 42);
             txtWorkHours.Margin = new Padding(3, 2, 3, 2);
             txtWorkHours.Name = "txtWorkHours";
-            txtWorkHours.Size = new Size(42, 24);
+            txtWorkHours.Size = new Size(42, 21);
             txtWorkHours.TabIndex = 42;
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(208, 92);
+            txtNombre.Location = new Point(96, 42);
             txtNombre.Margin = new Padding(3, 2, 3, 2);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(201, 24);
+            txtNombre.Size = new Size(201, 21);
             txtNombre.TabIndex = 43;
             // 
             // V_Proyecto
             // 
-            AutoScaleDimensions = new SizeF(9F, 18F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
             Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -339,5 +373,7 @@
         private DataGridView dgvLoadTareas;
         private Label lblTareas;
         private ToolStripMenuItem FinalizarProyectotoolStripMenuItem;
+        private Label label4;
+        private TextBox txtFiltro;
     }
 }
